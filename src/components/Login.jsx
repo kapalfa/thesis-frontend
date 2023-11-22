@@ -12,6 +12,7 @@ import FormControllLabel from '@mui/material/FormControlLabel';
 import { useEffect } from 'react';
 const defaultTheme = createTheme();
 
+// function
 export default function SignIn() {
   const navigate = useNavigate();
   const { auth, setAuth, persist, setPersist } = useAuth();
