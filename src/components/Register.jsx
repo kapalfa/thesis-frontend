@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link }  from "react-router-dom"
+import axios from 'axios';
 
 const defaultTheme = createTheme();
 
@@ -19,20 +20,17 @@ export default function Register() {
       jsonObject[key] = value;
     }
     try {
-      const response = await fetch('https://127.0.0.1:8443/api/register', {
-        method: 'POST',
+      const response = await axios.post('https://127.0.0.1:8443/api/register', jsonObject, {
         headers: {
           'Content-Type' : 'application/json'
-        },
-        body: JSON.stringify(jsonObject),
+        }
       });
 
-        if (response.ok) {
-            const token = await response.json();
-        } else {
-            console.log(response.status);
-            console.log( await response.text());  
-        }
+      if (response.ok) {
+        await response.json();
+      } else {
+          console.log(response.status);
+      }
     } catch (error) {
         console.log(error);
     }
@@ -52,18 +50,6 @@ export default function Register() {
         >
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="name"
-                  required
-                  fullWidth
-                  id="name"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              
               <Grid item xs={12}>
                 <TextField
                   required

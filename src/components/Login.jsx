@@ -12,7 +12,6 @@ import FormControllLabel from '@mui/material/FormControlLabel';
 import { useEffect } from 'react';
 const defaultTheme = createTheme();
 
-// function that signs you in
 export default function SignIn() {
   const navigate = useNavigate();
   const { auth, setAuth, persist, setPersist } = useAuth();
@@ -37,10 +36,12 @@ export default function SignIn() {
         body: JSON.stringify(jsonObject),
       });
       if (response.ok) {
+    
         const res = await response.json();
         const accessToken = res.access_token;
         setAuth(accessToken);
-        navigate('/home', {replace: true}, {state: {from: from}})
+        navigate('/main', {replace: true}, {state: {from: from}})
+        
       } else {
         console.log('Login failed: ', response)
       }
