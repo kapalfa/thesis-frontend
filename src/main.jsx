@@ -13,6 +13,7 @@ import BasicGrid from './components/MainView'
 import { AuthProvider } from './context/AuthProvider'
 import RequireAuth from './components/RequireAuth'
 import User from './components/User'
+import AfterLogin from './components/AfterLogin'
 import PersistLogin from './components/PersistLogin'
 const router = createBrowserRouter([
   {
@@ -30,21 +31,28 @@ const router = createBrowserRouter([
     element: <Register/>,
     errorElement: <ErrorPage/>,
   },
-  {
-    element: <PersistLogin/>, 
-    children: [
-      {
-        path: "/home",
-        element: <RequireAuth/>,
-        errorElement: <ErrorPage/>,
-        children:[
-          {
-           path: "/home",
-            element: <BasicGrid/>,
-            errorElement: <ErrorPage/>,
-          },
-        ]
-      },    
+  //{
+   // element: <PersistLogin/>, 
+   // children: [
+    {     //   path: "/home",
+      //  element: <RequireAuth/>,
+      //  errorElement: <ErrorPage/>,
+      ////  children:[
+      ///    {
+    path: "/project/:id",
+    element: <BasicGrid/>,
+    //loader: async ({params}) => {
+     // const response = await axios.get(`https://localhost:8443/api/getProject/${params.id}`, {
+     //   headers: {
+      //    'Content-Type': 'application/json'
+     //   }
+     // })
+      //return response.data 
+    //},
+    errorElement: <ErrorPage/>,
+  },
+      //  ]
+     // },    
       {
         path: "/user",
         element: <RequireAuth/>,
@@ -56,7 +64,12 @@ const router = createBrowserRouter([
           },
         ]
       },  
-    ]
+   // ]
+  //},
+  {
+    path: "/main",
+    element: <AfterLogin/>,
+    errorElement: <ErrorPage/>,
   },
   {
     path: "*",
