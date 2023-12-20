@@ -2,23 +2,26 @@ import React from 'react'
 import * as ReactDOM from 'react-dom/client'
 import './index.css'
 import {
-  createBrowserRouter,
-  RouterProvider,
+    createBrowserRouter,
+    RouterProvider,
 } from 'react-router-dom'
 import ProductHero from './components/Landing'
 import ErrorPage from './components/error-page'
-import SignIn from './components/Login'
-import Register from './components/Register'
+import SignIn from './components/AuthComponents/Login'
+import Register from './components/AuthComponents/Register'
 import BasicGrid from './components/MainView'
 import { AuthProvider } from './context/AuthProvider'
-import RequireAuth from './components/RequireAuth'
+import RequireAuth from './components/AuthComponents/RequireAuth'
 import User from './components/User'
 import AfterLogin from './components/AfterLogin'
-import PersistLogin from './components/PersistLogin'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+// import PersistLogin from './components/AuthComponentsPersistLogin'
+const queryClient = new QueryClient()
 const router = createBrowserRouter([
   {
-    path: "/", // landing page
-    element: <ProductHero/> ,
+      path: "/", // landing page
+      element: <ProductHero/> ,
     errorElement: <ErrorPage/>,
   },
   {
@@ -78,8 +81,11 @@ const router = createBrowserRouter([
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router}/>
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <RouterProvider router={router}/>
+      </AuthProvider>
+      <ReactQueryDevtools initialIsOpen={false} position='bottom-right'/>
+    </QueryClientProvider>
   </React.StrictMode>,
 );

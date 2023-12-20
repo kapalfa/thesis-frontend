@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 import Switch from '@mui/material/Switch';
 import FormControllLabel from '@mui/material/FormControlLabel';
 import { useEffect } from 'react';
@@ -15,7 +15,7 @@ const defaultTheme = createTheme();
 export default function SignIn() {
   const navigate = useNavigate();
   const { auth, setAuth, persist, setPersist } = useAuth();
-  const location = useLocation();
+const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
   const handleSubmit =  async (event) => {
@@ -55,7 +55,7 @@ export default function SignIn() {
   }
 
   useEffect(() => {
-    localStorage.setItem('persist', persist)
+  localStorage.setItem('persist', persist)
   }, [persist])
 
   return (
@@ -70,7 +70,7 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >    
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
