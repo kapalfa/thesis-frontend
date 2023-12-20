@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom"
 import { useState, useEffect } from "react"
-import useRefreshToken from "../hooks/useRefresh"
-import useAuth from "../hooks/useAuth"
+import useRefreshToken from "../../hooks/useRefresh"
+import useAuth from "../../hooks/useAuth"
 
 const PersistLogin = () => {
     const [isLoading, setIsLoading] = useState(true)
@@ -11,7 +11,7 @@ const PersistLogin = () => {
     useEffect(() => {
         const verifyRefreshToken = async () => {
             try {
-                console.log("gt eimai edw re gamw")
+                console.log("gt eimai edw ")
                 await refresh()
             }
             catch (err){

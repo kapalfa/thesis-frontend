@@ -34,6 +34,7 @@ export default function CreateProjectForm () {
                 }
             })
             const projectId = response.data.data.id
+            console.log("response.data from createProject : ", response.data.data)
             navigate(`/project/${projectId}`, {state: { project: response.data.data }})
 
         } catch (error) {
