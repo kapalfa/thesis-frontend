@@ -35,7 +35,10 @@ export default function ControlledTreeView() {
     const { status, data: files } = getFiles(id, auth)
     const handleFileClick = (file) => {
       setSelectedFile(file);
+
+      console.log('file from handleFileClick: ', file)
     }
+
   
     const handleToggle = (event, nodeIds) => {
       setExpanded(nodeIds);

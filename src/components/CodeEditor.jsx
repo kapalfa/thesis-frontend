@@ -3,40 +3,60 @@ import { useContext, useRef, useMemo, useEffect } from 'react'
 import { FileContext } from './MainView'
 import getLanguage from '../../languageDetection/detectLang.js'
 import axios from 'axios'
-import { useQuery } from '@tanstack/react-query'
-import { useSaveFile } from '../hooks/useSaveFile.jsx'
-import { useDebounce } from '../hooks/useDebounce.js'
-
-function getFile(obj){
-  const { data, isError, error, status, refetch } = useQuery({
-   // queryKey: [obj], 
-    queryKey: ['file'],
-    queryFn: async () => { 
-      const filepath = { obj }.obj
-      const strfile = String(filepath)
-      console.log('filepath from getFile: ', strfile)
-      console.log('filepath : ', filepath)
-      const { data } = await axios.get(`https://127.0.0.1:8443/api/getFile/${filepath}`) 
-      return { data }
-    },
-    enabled: !!obj, 
-   // gcTime: 0,
-  //  staleTime: 10000,
-  })
-  if(isError) {
-    return { data : '', isError, error, refetch }
-  }
-  if(status === 'success') {
-    return { data: String(data.data), status, refetch }
-  }
-  return { data : '', status, refetch }
-}
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 export default function CodeEditor(){
+  const queryClient = useQueryClient()
   const { selectedFile } = useContext(FileContext)
-  const { data, status, refetch } = getFile(selectedFile) 
   const editorRef = useRef(null)
-  const { mutate } = useSaveFile(selectedFile, refetch) 
+  const mutateFile = useMutation({
+    mutationFn: (formData) => { 
+      const file = formData.get('file')
+      const filepath = file.name
+      return axios.post(`https://localhost:8443/api/saveFile/${filepath}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+     },
+    onMutate: async () => {
+      await queryClient.cancelQueries(['file', selectedFile])
+      const previousData = queryClient.getQueryData(['file', selectedFile])
+      queryClient.setQueryData(['file', selectedFile], editorRef.current.getModel().getValue())
+      return { previousData }
+     },
+    onSuccess: async (newData) => {
+      await queryClient.setQueryData(['file', selectedFile], newData.data.data)
+      return queryClient.invalidateQueries(['file', selectedFile])
+    },
+    onError: (error, variables, context) => {
+     // queryClient.setQueryData(['file', selectedFile], context.previousData)
+      console.log('error from useMutation: ', error)
+    }
+  
+  })
+  const { status, data, error } = useQuery({
+    queryKey: ['file', selectedFile],
+    queryFn: async () => {
+      const res = await axios.get(`https://localhost:8443/api/getFile/${selectedFile}`)
+      return res.data
+    },
+    enabled: !!selectedFile,
+    staleTime: 0,
+    gcTime: 0,
+  })
+
+  if( status === 'success'){
+    console.log('data from get: ', queryClient.getQueryData(['file', selectedFile]))
+    console.log('newData: ', data)
+  }
+  if( status === 'error'){
+    console.log('error: ', error)
+  }
+  if( status === 'loading'){
+    console.log('loading')
+  }
+  if( status === 'idle'){
+    console.log('idle')
+  }
 
   const language = useMemo(() => { // this runs before useEffect
       if(selectedFile) {
@@ -49,25 +69,33 @@ export default function CodeEditor(){
       const file = new File([editorRef.current.getModel().getValue()], selectedFile, {type: 'text/plain'})
       const formData = new FormData()
       formData.append('file', file)
-      mutate({ formData, path: selectedFile })
+      mutateFile.mutate(formData,
+        { onSuccess: (data) => { queryClient.setQueryData(['file', selectedFile], data.data.data)}})
+
+     // data = formData.get('file')
+     /// queryClient.invalidateQueries({queryKey: [selectedFile]})
+
+     // queryClient.setQueriesData([selectedFile], editorRef.current.getModel().getValue())
+
+      console.log('data from query: ', queryClient.getQueryData(['file', selectedFile]))
   }
- 
+
 //  const debouncedRequest = useDebounce(handleSave)
   //const onChange = (e) => {
     //debouncedRequest()
   //}
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = async (event) => {
       if(event.ctrlKey && event.key === 's'){
         event.preventDefault()        
-        handleSave()
+        await handleSave()
       }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [handleSave])
+  }, [selectedFile])
   
     // useEffect(()=>{
     //   if(editorRef.current && selectedFile){

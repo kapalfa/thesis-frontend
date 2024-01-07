@@ -16,7 +16,6 @@ const StyledTreeItem = styled(TreeItem)(({theme}) => ({
     },
 }));
 export default function FileTree({ files, handleFileClick }) {
-
     const [ upload, setUpload ] = useState(null)
     const handleUpload = (path) => {
         setUpload(path)

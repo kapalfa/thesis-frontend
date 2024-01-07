@@ -8,6 +8,10 @@ import axios from "axios";
 import useAuth from "../hooks/useAuth";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from 'react-router-dom'
+import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
+import { Typography } from "@mui/material";
+
 export default function CreateProjectForm () {
     const { auth } = useAuth()
     const navigate = useNavigate()
@@ -43,21 +47,35 @@ export default function CreateProjectForm () {
     }
 
     return(
-        <Box 
-            component="form" 
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '10px'
-            }}
-            noValidate
-            autoComplete="off"
-            onSubmit={handleSubmit}
-        >
-            <TextField name="projectName" label="Project Name" variant="outlined" />
+        <Grid container justifyContent="center" alignItems="center">
+                <Paper elevation={3}>
+                    <Box 
+                        component="form" 
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '10px',
+                            padding: '20px',
+                        }}
+                        noValidate
+                        autoComplete="off"
+                        onSubmit={handleSubmit}
+                    >   
+                    <Typography variant="h4" component="h2" gutterBottom>New Project</Typography>
+            <Grid item xs={12}>
+             <TextField name="projectName" label="Project Name" variant="outlined" />
+            </Grid>
+            <Grid item xs={12}>
             <TextField name="projectDescription" label="Project Description" variant="outlined" />
+           </Grid>
+           <Grid item xs={12}>
             <FormControlLabel control={<Switch name="isPublic"/>} label="Public"/>
+           </Grid>
+           <Grid item xs={12}>
             <Button variant="contained" type="submit">Create Project</Button>
+            </Grid>
         </Box>
+    </Paper>
+        </Grid>
     )
 }
