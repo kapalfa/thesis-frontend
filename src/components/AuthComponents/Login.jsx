@@ -1,21 +1,31 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate, Link, useLocation } from 'react-router-dom';
-import useAuth from '../../hooks/useAuth';
-import Switch from '@mui/material/Switch';
-import FormControllLabel from '@mui/material/FormControlLabel';
-import { useEffect } from 'react';
-const defaultTheme = createTheme();
+import * as React from 'react'
+import Button from '@mui/material/Button'
+import CssBaseline from '@mui/material/CssBaseline'
+import TextField from '@mui/material/TextField'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
+import useAuth from '../../hooks/useAuth'
+import Switch from '@mui/material/Switch'
+import FormControllLabel from '@mui/material/FormControlLabel'
+import { useEffect } from 'react'
+import * as yup from 'yup'
+import GithubLogin from '../GithubComponents/GithubLogin'
+import { API_BASE_URL } from '../../constant'
+import axios from 'axios'
+
+const defaultTheme = createTheme()
+
+const schema = yup.object().shape({
+  email: yup.string().email('Invalid email address').required('Required'),  
+  password: yup.string().required('Required'),
+})
 
 export default function SignIn() {
   const navigate = useNavigate();
   const { auth, setAuth, persist, setPersist } = useAuth();
-const location = useLocation();
+  const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
   const handleSubmit =  async (event) => {
@@ -25,30 +35,29 @@ const location = useLocation();
     for (const [key,value] of data.entries()) { 
       jsonObject[key] = value
     }
-
     try {
-      const response = await fetch('https://localhost:8443/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type' : 'application/json'
-        },
-        credentials: 'include',
-        body: JSON.stringify(jsonObject),
-      });
-      if (response.ok) {
-    
-        const res = await response.json();
-        const accessToken = res.access_token;
-        setAuth(accessToken);
-        navigate('/main', {replace: true}, {state: {from: from}})
-        
-      } else {
-        console.log('Login failed: ', response)
-      }
+      await schema.validate(jsonObject)
     } catch (error) {
-      console.log(error);
+      alert(error.errors[0])
+      return
     }
-  };  
+    
+    axios.post(`${API_BASE_URL}/login`, jsonObject)
+      .then(response => {
+        if (response.data.message==="Invalid password"){
+          console.log("invalid password\n")
+        }
+        if( response.data.message==="User not found"){
+          console.log("user not found\n")
+        }
+        const accessToken = response.data.access_token;
+        setAuth(accessToken);
+        navigate('/main', {replace: true}, {state: {from: from}})  
+      }) 
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
   const togglePersist = () => {
     setPersist(prev => !prev)
@@ -100,6 +109,7 @@ const location = useLocation();
               Sign In
             </Button>
           </Box>
+          <GithubLogin/>
           <FormControllLabel control={<Switch/>} label="Trust this device" onChange={togglePersist} checked={persist}/>
           <Link to="/register" variant="body2" underline="hover">Don't have an account? Sign up</Link>
         </Box>

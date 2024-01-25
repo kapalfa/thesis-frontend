@@ -1,8 +1,8 @@
 import axios from 'axios'
-const BASE_URL = 'https://localhost:8443/api'
+import { API_BASE_URL } from '../constant'
 
 export const axiosPrivate = axios.create({
-    baseURL: BASE_URL,
+    baseURL: API_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
     },

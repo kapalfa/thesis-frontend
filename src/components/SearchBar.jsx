@@ -7,12 +7,13 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
 import Toolbar from '@mui/material/Toolbar';
+import Profile from './Profile.jsx'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useDebounce } from '@uidotdev/usehooks';
 import axios from 'axios'
 import { useNavigate, useLocation } from 'react-router-dom';
-
+import { API_BASE_URL } from '../constant.js';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -50,7 +51,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const searchProject = async (debouncedSearchInput) => {
   console.log("debouncedSearchInput", debouncedSearchInput)
-  const { data } = await axios.get(`https://127.0.0.1:8443/api/searchProjects/${debouncedSearchInput}`)
+  const { data } = await axios.get(`${API_BASE_URL}/searchProjects/${debouncedSearchInput}`)
   return data
 }
 
@@ -113,13 +114,14 @@ export default function SearchAppBar() {
             >
               {data?.length > 0 ? (
                 data?.map((project) => (
-                  <MenuItem key={project.id} onClick={() => {navigate(`/project/${project.id}`, {state: { project: project }}); handleClose()}}>{project.name}</MenuItem>
+                  <MenuItem key={project.id} onClick={() => {navigate(`/project/${project.id}`, {state: { project: project, public: 1 }}); handleClose()}}>{project.name}</MenuItem>
                 ))
               ) : ( 
                 <MenuItem onClick={handleClose}>No projects found</MenuItem>
               )}
             </Menu>
           </Search>
+          <Profile />
         </Toolbar>
       </AppBar>
     </Box>

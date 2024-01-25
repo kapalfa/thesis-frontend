@@ -1,44 +1,62 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as React from 'react'
+import Button from '@mui/material/Button'
+import CssBaseline from '@mui/material/CssBaseline'
+import TextField from '@mui/material/TextField'
+import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { Link }  from "react-router-dom"
-import axios from 'axios';
-
-const defaultTheme = createTheme();
+import axios from 'axios'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { useNavigate } from 'react-router-dom'
+import { API_BASE_URL, REGISTER_ROUTE } from '../../constant'
+const defaultTheme = createTheme()
 
 export default function Register() {
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    let jsonObject = {};
-    for (const [key,value] of data.entries()) { 
-      jsonObject[key] = value;
+  const navigate = useNavigate()
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email('Invalid email address')
+        .required('Required'),
+      password: Yup.string()
+        .min(8, 'Must be 8 characters or more')
+        .required('Required'),
+    }),
+    onSubmit: values => {
+      handleSubmit(values);
     }
-    try {
-      const response = await axios.post('https://127.0.0.1:8443/api/register', jsonObject, {
-        headers: {
-          'Content-Type' : 'application/json'
-        }
-      });
-
-      if (response.ok) {
-        await response.json();
-      } else {
-          console.log(response.status);
+  })
+ 
+  const handleSubmit = (values) => {
+    axios.post(`${API_BASE_URL}${REGISTER_ROUTE}`, values, {
+      headers: {
+        'Content-Type' : 'application/json'
       }
-    } catch (error) {
-        console.log(error);
-    }
+    })
+    .then(function (response) {
+      if (response.data.status === "error") {
+        if (response.data.message === "User already exists") {
+          formik.setErrors({email: "User already exists"})
+        }
+      } else {
+        navigate("/login")
+      }
+    })
+    .catch(function (error) {
+      console.log(error.response.data);
+    })
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh'}} >
         <CssBaseline />
         <Box
           sx={{
@@ -48,43 +66,38 @@ export default function Register() {
             alignItems: 'center',
           }}
         >
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-            
+        <form onSubmit={formik.handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="email"
+                {...formik.getFieldProps('email')}
+              />
+              {formik.touched.email && formik.errors.email ? <div>{formik.errors.email}</div> : null}
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-          </Box>
-          <Link to="/login" variant="body2" underline="hover">Already have an account? Log in</Link>
-        </Box>
-      </Container>
-    </ThemeProvider>
-  );
+            <Grid item xs={12}>
+             <TextField
+                fullWidth       
+                type="password"
+                id="password"
+             {...formik.getFieldProps('password')}
+              />
+              {formik.touched.password && formik.errors.password ? <div>{formik.errors.password}</div> : null}
+            </Grid>
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign Up
+          </Button>
+      </form>
+        <Link to="/login" variant="body2" underline="hover">Already have an account? Log in</Link>
+      </Box>
+    </Container>
+  </ThemeProvider>
+);
 }
