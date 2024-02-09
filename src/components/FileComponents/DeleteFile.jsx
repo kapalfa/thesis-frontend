@@ -5,6 +5,7 @@ import axios from 'axios';
 import Button from '@mui/material/Button';
 import { FileContext } from '../MainView';
 import { useContext } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const deleteFile = ({path}) => {
     axios.delete(`${API_BASE_URL}/deleteFile/${path}`)
@@ -17,7 +18,7 @@ const deleteFile = ({path}) => {
 }
 
 const useDeleteFile = () => {
-    const { error,mutate } = useMutation({
+    const { error, mutate } = useMutation({
         mutationFn: deleteFile
     })
     return { error, mutate }
@@ -30,17 +31,19 @@ export default function DeleteFile({path, onRefresh}) {
         console.log(error)
         
     const handleDeleteFile = () => {
-        mutate({path}, {
-            onSuccess: () => {
-                setSelectedFile(null)
-                onRefresh()
-            }
-        })
+        if (window.confirm('Are you sure you want to delete this file?')) {
+            mutate({path}, {
+                onSuccess: () => {
+                    setSelectedFile(null)
+                    onRefresh()
+                }
+            })
+        }
     }
 
     return (
         <div>
-            <Button onClick={handleDeleteFile}>Delete</Button>
+            <Button onClick={handleDeleteFile} startIcon={<DeleteIcon/>}/>
         </div>
     )
 }

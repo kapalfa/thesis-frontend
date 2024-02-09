@@ -31,7 +31,6 @@ export default function FolderUpload({path, onRefresh, onClose}) {
     const { error, mutate } = usePostFolder();
     if (error) console.log(error);
 
-    console.log("path: ", path)
     const handleUploadFolder = async(event) => {
         const folder = event.target.files;
         const formData = new FormData();

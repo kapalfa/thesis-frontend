@@ -98,7 +98,7 @@ export default function CodeEditor(){
     <>
       {status === 'success' && 
         <Editor
-            height="90vh"
+            height="95vh"
             onMount={handleEditorDidMount}
             defaultValue={data}
             value={fileContent}

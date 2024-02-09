@@ -16,14 +16,12 @@ const createFile = ({filename, path}) => {
         console.log(err)
     })
 }
-
 const useCreateFile = () => {
     const { error, mutate } = useMutation({
         mutationFn: createFile,
     })
     return { error, mutate }
 }
-
 export default function CreateFile({path, onRefresh, onClose}) {
     const [ open, setOpen ] = useState(true)
     const { error, mutate } = useCreateFile()
@@ -40,7 +38,6 @@ export default function CreateFile({path, onRefresh, onClose}) {
                 onClose()
                 onRefresh()
             }
-        
         })
     }
 

@@ -3,11 +3,15 @@ import { Terminal } from "xterm"
 import useWebSocket from 'react-use-websocket'
 import '../xterm.css'
 import { useParams } from 'react-router-dom'
-
+import { jwtDecode } from 'jwt-decode'
+import Box from '@mui/material/Box'
+import useAuth from '../hooks/useAuth'
 let term 
 function Shell() {
+    const { auth } = useAuth()
+    const userid = jwtDecode(auth).id
     const { id } = useParams()
-    const socketURL = 'wss://localhost:8443/sockets'
+    const socketURL = `wss://localhost:8443/sockets/projId=${id}&userId=${userid}`
     const { sendMessage, lastMessage, getWebSocket } = useWebSocket(socketURL, {
         onOpen: () => { openInitTerminal(), runTerminal() },
         retryOnError: true,
@@ -93,10 +97,11 @@ function Shell() {
         }
     }, [])
   
-    return <>
-    DAFAK
-    <div id="terminal" ref={termRef} />
-    </>
+    return (
+        <Box sx={{width: 670}}>
+    <div id="terminal" ref={termRef}/>
+    </Box>
+    )
 }
 
 export default Shell;

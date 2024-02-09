@@ -35,6 +35,7 @@ export default function SignIn() {
     for (const [key,value] of data.entries()) { 
       jsonObject[key] = value
     }
+    const email = jsonObject.email
     try {
       await schema.validate(jsonObject)
     } catch (error) {
@@ -52,6 +53,7 @@ export default function SignIn() {
         }
         const accessToken = response.data.access_token;
         setAuth(accessToken);
+        localStorage.setItem('email', email);
         navigate('/main', {replace: true}, {state: {from: from}})  
       }) 
       .catch(err => {

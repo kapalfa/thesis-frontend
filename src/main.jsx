@@ -4,7 +4,7 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from 'react-router-dom'
-import ProductHero from './components/Landing'
+import LandingPage from './components/LandingPage'
 import ErrorPage from './components/error-page'
 import SignIn from './components/AuthComponents/Login'
 import Register from './components/AuthComponents/Register'
@@ -16,12 +16,14 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import AccessTokenFetcher from './components/GithubComponents/GithubCallback'
 import PublicProjectList from './components/PublicProjects'
+import { GitProvider } from './context/GitProvider'
 // import PersistLogin from './components/AuthComponentsPersistLogin'
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
+  
   {
       path: "/", // landing page
-      element: <ProductHero/> ,
+      element: <LandingPage/> ,
       errorElement: <ErrorPage/>,
   },
   {
@@ -94,10 +96,12 @@ const router = createBrowserRouter([
   }
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
+  <QueryClientProvider client={queryClient}>
+    <AuthProvider>
+      <GitProvider>
         <RouterProvider router={router}/>
-      </AuthProvider>
-      <ReactQueryDevtools initialIsOpen={false} position='bottom-right'/>
-    </QueryClientProvider>
+      </GitProvider>
+    </AuthProvider>
+    <ReactQueryDevtools initialIsOpen={false} position='bottom-right'/>
+  </QueryClientProvider>
 );

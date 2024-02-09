@@ -1,5 +1,9 @@
 import axios from 'axios'
-import { API_BASE_URL } from '../constant'
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL
+
+export default axios.create({
+    baseURL: API_BASE_URL,
+})
 
 export const axiosPrivate = axios.create({
     baseURL: API_BASE_URL,
