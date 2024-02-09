@@ -2,19 +2,18 @@ import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
 import Toolbar from '@mui/material/Toolbar';
+import Profile from './Profile.jsx'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useDebounce } from '@uidotdev/usehooks';
 import axios from 'axios'
 import { useNavigate, useLocation } from 'react-router-dom';
-
+import { API_BASE_URL } from '../constant.js';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -26,7 +25,6 @@ const Search = styled('div')(({ theme }) => ({
   width: '100%',
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(1),
-    width: 'auto',
   },
 }));
 
@@ -48,18 +46,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
   },
 }));
 
 const searchProject = async (debouncedSearchInput) => {
   console.log("debouncedSearchInput", debouncedSearchInput)
-  const { data } = await axios.get(`https://127.0.0.1:8443/api/searchProjects/${debouncedSearchInput}`)
+  const { data } = await axios.get(`${API_BASE_URL}/searchProjects/${debouncedSearchInput}`)
   return data
 }
 
@@ -82,6 +74,7 @@ export default function SearchAppBar() {
   const [ anchorEl, setAnchorEl ] = useState(null)
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
+    if(searchInput === '') return
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -94,25 +87,15 @@ export default function SearchAppBar() {
     setSearchInput(event.target.value)
   }
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1}}>
+      <AppBar position="static" >
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Search public projects"
               inputProps={{ 'aria-label': 'search' }}
               onChange={handleSearchInputChange}
               onClick={handleClick}
@@ -129,11 +112,16 @@ export default function SearchAppBar() {
                 'aria-labelledby': 'basic-button',
               }}
             >
-              {data?.map((project) => (
-                <MenuItem key={project.id} onClick={() => {navigate(`/project/${project.id}`, {state: { project: project }}); handleClose()}}>{project.name}</MenuItem>
-              ))}
+              {data?.length > 0 ? (
+                data?.map((project) => (
+                  <MenuItem key={project.id} onClick={() => {navigate(`/project/${project.id}`, {state: { project: project, public: 1 }}); handleClose()}}>{project.name}</MenuItem>
+                ))
+              ) : ( 
+                <MenuItem onClick={handleClose}>No projects found</MenuItem>
+              )}
             </Menu>
           </Search>
+          <Profile />
         </Toolbar>
       </AppBar>
     </Box>
