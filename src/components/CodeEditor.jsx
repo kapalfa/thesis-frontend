@@ -5,7 +5,7 @@ import getLanguage from '../../languageDetection/detectLang.js'
 import axios from 'axios'
 import Grid from '@mui/material/Grid'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { API_BASE_URL } from '../constant.js'
+import { axiosPrivate } from '../api/axios.js'
 
 export default function CodeEditor(){
   const queryClient = useQueryClient()
@@ -16,9 +16,12 @@ export default function CodeEditor(){
     mutationFn: (formData) => { 
       const file = formData.get('file')
       const filepath = file.name
-      return axios.post(`${API_BASE_URL}/saveFile/${filepath}`, formData, {
+      return axiosPrivate.post(`/saveFile/${filepath}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
-      });
+      })
+      // return axios.post(`${API_BASE_URL}/saveFile/${filepath}`, formData, {
+      //   headers: { 'Content-Type': 'multipart/form-data' }
+      // });
      },
     // onMutate: async () => {
     //   await queryClient.cancelQueries(['file', selectedFile])
