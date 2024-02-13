@@ -12,7 +12,7 @@ import FormControllLabel from '@mui/material/FormControlLabel'
 import { useEffect } from 'react'
 import * as yup from 'yup'
 import GithubLogin from '../GithubComponents/GithubLogin'
-import axios from '../api/axios'
+import axios from '../../api/axios'
 
 const defaultTheme = createTheme()
 
