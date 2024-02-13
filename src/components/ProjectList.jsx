@@ -11,7 +11,6 @@ import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Grid from '@mui/material/Grid'
 import { Link } from 'react-router-dom'
-import { API_BASE_URL } from '../constant'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import { useState } from 'react'
 import Tooltip from '@mui/material/Tooltip'
@@ -101,7 +100,7 @@ export default function ProjectList() {
     const [ email, setEmail ] = useState('')
     const handleDelete = (id) => {
         if(window.confirm('Are you sure you want to delete this project?')) {
-            axiosPrivate.delete(`${API_BASE_URL}/deleteProject/${id}`)
+            axiosPrivate.delete(`/deleteProject/${id}`)
             .then(() => {
                 refetch()
             })  

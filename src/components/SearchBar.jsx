@@ -13,7 +13,6 @@ import { useState } from 'react'
 import { useDebounce } from '@uidotdev/usehooks';
 import useAxiosPrivate from '../hooks/useAxiosPrivate.js'
 import { useNavigate, useLocation } from 'react-router-dom';
-import { API_BASE_URL } from '../constant.js';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,

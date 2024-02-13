@@ -7,11 +7,10 @@ import Box from "@mui/material/Box";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate, useLocation, useActionData } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import { Typography } from "@mui/material";
-import { API_BASE_URL } from "../constant";
 import * as yup from 'yup'
 
 const schema = yup.object().shape({

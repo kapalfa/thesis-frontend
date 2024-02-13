@@ -1,4 +1,3 @@
-import { API_BASE_URL, COPY_ROUTE } from '../constant'
 import { useQuery } from '@tanstack/react-query'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -46,7 +45,7 @@ export default function PublicProjectList() {
     const axiosPrivate = useAxiosPrivate()
     const copyProject = useMutation({
         mutationFn: (id) => {
-            axiosPrivate.post(`${API_BASE_URL}${COPY_ROUTE}`, {
+            axiosPrivate.post(`/copyProject`, {
                 projectid: String(id),
                 userid: String(userid),
             })

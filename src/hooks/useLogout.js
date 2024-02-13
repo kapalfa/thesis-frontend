@@ -1,7 +1,6 @@
 import useAxiosPrivate from './useAxiosPrivate'
 import useAuth from './useAuth'
 import { useNavigate } from 'react-router-dom'
-import { API_BASE_URL } from '../constant'
 
 const useLogout = () => {
     const axiosPrivate = useAxiosPrivate()
@@ -11,7 +10,7 @@ const useLogout = () => {
     const logout = async () => {
         try {
             console.log('logging out')
-            const response = await axiosPrivate.get(`${API_BASE_URL}/logout`)
+            const response = await axiosPrivate.get(`/logout`)
             if (response.status=='200') {
                 setAuth(null)
                 navigate('/login', {replace: true})

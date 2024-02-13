@@ -6,12 +6,13 @@ import { useParams } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
 import Box from '@mui/material/Box'
 import useAuth from '../hooks/useAuth'
+import { API_WS_URL } from '../api/axios'
 let term 
 function Shell() {
     const { auth } = useAuth()
     const userid = jwtDecode(auth).id
     const { id } = useParams()
-    const socketURL = `wss://localhost:8080/sockets/projId=${id}&userId=${userid}`
+    const socketURL = `${API_WS_URL}/sockets/projId=${id}&userId=${userid}`
     const { sendMessage, lastMessage, getWebSocket } = useWebSocket(socketURL, {
         onOpen: () => { openInitTerminal(), runTerminal() },
         retryOnError: true,

@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { API_BASE_URL } from '../../constant'
 import { useMutation } from '@tanstack/react-query'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import { useState, useEffect } from 'react'

@@ -7,7 +7,6 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import useGit from '../hooks/useGit';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
-import { API_BASE_URL } from '../constant';
 import useAuth from '../hooks/useAuth';
 import useLogout from '../hooks/useLogout';
 import { jwtDecode } from 'jwt-decode';
@@ -33,7 +32,7 @@ export default function Info() {
     const mutation=useMutation({
         mutationFn: async () => {
             try {
-                const response = await axiosPrivate.post(`https://localhost:8443/github/commitRepo`, { projectid: projectId, userid: decoded.id})
+                const response = await axiosPrivate.post(`/github/commitRepo`, { projectid: projectId, userid: decoded.id})
                 console.log('response: ', response)
             } catch (error) {
                 console.log('error: ', error)

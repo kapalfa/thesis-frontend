@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { API_BASE_URL } from "../../constant";
 import { Button, DialogContent } from "@mui/material";
 import { Dialog, DialogTitle, DialogActions } from "@mui/material";
 import { useState } from "react";

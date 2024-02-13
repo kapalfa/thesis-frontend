@@ -1,4 +1,3 @@
-import { API_BASE_URL } from '../../constant';
 import { useMutation } from '@tanstack/react-query';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { FileContext } from '../MainView';

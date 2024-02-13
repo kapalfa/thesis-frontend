@@ -12,7 +12,6 @@ import FormControllLabel from '@mui/material/FormControlLabel'
 import { useEffect } from 'react'
 import * as yup from 'yup'
 import GithubLogin from '../GithubComponents/GithubLogin'
-import { API_BASE_URL } from '../../constant'
 import axios from 'axios'
 
 const defaultTheme = createTheme()
@@ -43,7 +42,7 @@ export default function SignIn() {
       return
     }
     
-    axios.post(`${API_BASE_URL}/login`, jsonObject)
+    axios.post(`/login`, jsonObject)
       .then(response => {
         if (response.data.message==="Invalid password"){
           console.log("invalid password\n")

@@ -2,7 +2,6 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
-import { API_BASE_URL } from '../constant.js'
 import { CardContent } from '@mui/material'
 import useAxiosPrivate from '../hooks/useAxiosPrivate.js'
 function postInvitationResponse(){

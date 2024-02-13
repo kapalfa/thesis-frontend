@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import { API_BASE_URL } from '../constant.js'
 import useAxiosPrivate from '../hooks/useAxiosPrivate.js'
 
 export default function getInvitations(){

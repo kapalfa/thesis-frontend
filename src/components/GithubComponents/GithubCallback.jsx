@@ -16,7 +16,7 @@ export default function AccessTokenFetcher () {
     const mutation = useMutation({
       mutationFn: async () => {
       try {
-          const response = await axios.post('https://localhost:8443/github/callback',
+          const response = await axios.post('/github/callback',
             {code: code} ,
             {headers: { 'Content-Type': 'application/json' }}
           )

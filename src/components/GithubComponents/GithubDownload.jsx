@@ -14,7 +14,7 @@ export default function DownloadRepo () {
         mutationFn: async (repoName) => {
             try {
                 const userid = jwtDecode(auth).id
-                const res = await axios.post(`https://localhost:8443/github/downloadRepo/${userid}`, {repoName},
+                const res = await axios.post(`/github/downloadRepo/${userid}`, {repoName},
                     {
                         headers: {
                             'Content-Type': 'application/json', 

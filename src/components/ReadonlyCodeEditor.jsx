@@ -6,7 +6,6 @@ import useAxiosPrivate from '../hooks/useAxiosPrivate.js'
 import Grid from '@mui/material/Grid'
 import Shell from './Shell.jsx'
 import { useQuery } from '@tanstack/react-query'
-import { API_BASE_URL } from '../constant.js'
 
 export default function ReadonlyCodeEditor(){
   const [ fileContent, setFileContent ] = useState('')

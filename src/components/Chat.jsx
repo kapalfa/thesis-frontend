@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom"
 import { MessageBox } from 'react-chat-elements'
 import { Avatar } from 'react-chat-elements'
 import TextField from "@mui/material/TextField"
+import { API_WS_URL } from "../api/axios"
 
 export default function Chat(){
     const { id } = useParams()
@@ -15,7 +16,7 @@ export default function Chat(){
     const { auth } = useAuth()
     const userid = jwtDecode(auth).id
    
-    const socketURL = `wss://localhost:8080/sockets/chat/${userid}`
+    const socketURL = `${API_WS_URL}/sockets/chat/${userid}`
     let InitialMessage = {
         action: 'joinRoom',
         message: '',
