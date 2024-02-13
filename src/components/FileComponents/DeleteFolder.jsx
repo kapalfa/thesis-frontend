@@ -1,12 +1,11 @@
-import * as React from 'react';
 import { API_BASE_URL } from '../../constant';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { FileContext } from '../MainView';
 import { useContext } from 'react';
 import { useEffect } from 'react';
-const deleteFolder = ({ path}) => {
-    axios.delete(`${API_BASE_URL}/deleteFolder/${path}`)
+const deleteFolder = ({ path, axiosPrivate }) => {
+    axiosPrivate.delete(`${API_BASE_URL}/deleteFolder/${path}`)
     .then((response)=>{
         console.log(response.data)
     })
@@ -22,13 +21,14 @@ const useDeleteFolder = () => {
     return { error, mutate }
 }
 export default function DeleteFolder({ path, onRefresh, onClose }) {
+    const axiosPrivate = useAxiosPrivate()
     const { setSelectedFile } = useContext(FileContext)
     const { error, mutate } = useDeleteFolder()
     if (error)
         console.log(error)
 
     const handleDeleteFolder = () => {
-        mutate({ path }, {
+        mutate({ path, axiosPrivate}, {
             onSuccess: () => {
                 setSelectedFile(null)
                 onClose()

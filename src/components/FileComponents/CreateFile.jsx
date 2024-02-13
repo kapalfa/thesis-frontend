@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { API_BASE_URL } from '../../constant'
 import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 import { useState, useEffect } from 'react'
 import { DialogActions, DialogContent, DialogTitle, Dialog } from '@mui/material'
 import Button from '@mui/material/Button'
-const createFile = ({filename, path}) => {
-    axios.post(`${API_BASE_URL}/createFile/${path}`, {filename})
+const createFile = ({filename, path, axiosPrivate}) => {
+    axiosPrivate.post(`${API_BASE_URL}/createFile/${path}`, {filename})
     .then((response) => {
         if (response.data.message=="File already exists"){
             alert("File already exists")
@@ -23,6 +23,7 @@ const useCreateFile = () => {
     return { error, mutate }
 }
 export default function CreateFile({path, onRefresh, onClose}) {
+    const axiosPrivate = useAxiosPrivate()
     const [ open, setOpen ] = useState(true)
     const { error, mutate } = useCreateFile()
     if (error)
@@ -31,7 +32,7 @@ export default function CreateFile({path, onRefresh, onClose}) {
     const handleCreateFile = (event) => {
         event.preventDefault()
         const filename = event.target.filename.value
-        mutate({filename, path}, {
+        mutate({filename, path, axiosPrivate}, {
             onSuccess: () => {
                 event.target.value = null
                 setOpen(false)

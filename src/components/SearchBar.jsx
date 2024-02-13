@@ -11,7 +11,7 @@ import Profile from './Profile.jsx'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useDebounce } from '@uidotdev/usehooks';
-import axios from 'axios'
+import useAxiosPrivate from '../hooks/useAxiosPrivate.js'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { API_BASE_URL } from '../constant.js';
 const Search = styled('div')(({ theme }) => ({
@@ -49,28 +49,28 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const searchProject = async (debouncedSearchInput) => {
-  console.log("debouncedSearchInput", debouncedSearchInput)
-  const { data } = await axios.get(`${API_BASE_URL}/searchProjects/${debouncedSearchInput}`)
+const searchProject = async ({debouncedSearchInput, axiosPrivate}) => {
+  const { data } = await axiosPrivate.get(`${API_BASE_URL}/searchProjects/${debouncedSearchInput}`)
   return data
 }
 
-function search(debouncedSearchInput){
+function search({debouncedSearchInput, axiosPrivate}){
   return useQuery({
     queryKey: ['search', debouncedSearchInput], 
-    queryFn: () => searchProject(debouncedSearchInput),
+    queryFn: () => searchProject({debouncedSearchInput, axiosPrivate}),
     enabled: !!debouncedSearchInput, 
     //staleTime: 30000,
   })
 }
 
 export default function SearchAppBar() {
+  const axiosPrivate = useAxiosPrivate()
   const navigate = useNavigate()
   const location = useLocation()
   const from = location.state?.from?.pathname || "/"
   const [searchInput, setSearchInput] = useState('')
   const debouncedSearchInput = useDebounce(searchInput, 1000)
-  const { data, error, status} = search(debouncedSearchInput)
+  const { data, error, status} = search({debouncedSearchInput, axiosPrivate})
   const [ anchorEl, setAnchorEl ] = useState(null)
   const open = Boolean(anchorEl);
   const handleClick = (event) => {

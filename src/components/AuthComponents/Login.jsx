@@ -24,7 +24,7 @@ const schema = yup.object().shape({
 
 export default function SignIn() {
   const navigate = useNavigate();
-  const { auth, setAuth, persist, setPersist } = useAuth();
+  const { setAuth, persist, setPersist } = useAuth();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 

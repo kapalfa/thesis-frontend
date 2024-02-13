@@ -4,10 +4,10 @@ import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Box from "@mui/material/Box";
-import axios from "axios";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, useActionData } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import { Typography } from "@mui/material";
@@ -23,6 +23,7 @@ export default function CreateProjectForm () {
     const from = location.state?.from?.pathname || "/";
     const { auth } = useAuth()
     const navigate = useNavigate()
+    const axiosPrivate = useAxiosPrivate()
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -46,7 +47,7 @@ export default function CreateProjectForm () {
             public: jsonObject.isPublic === 'on'
         }
         try {
-            const response = await axios.post(`${API_BASE_URL}/createProject`, requestData, {
+            const response = await axiosPrivate.post(`${API_BASE_URL}/createProject`, requestData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

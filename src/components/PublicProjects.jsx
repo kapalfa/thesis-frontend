@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { API_BASE_URL, COPY_ROUTE } from '../constant'
 import { useQuery } from '@tanstack/react-query'
 import Card from '@mui/material/Card'
@@ -11,7 +10,7 @@ import Grid from '@mui/material/Grid'
 import { useMutation } from '@tanstack/react-query'
 import useAuth from '../hooks/useAuth'
 import { jwtDecode } from 'jwt-decode'
-
+import useAxiosPrivate from '../hooks/useAxiosPrivate'
 const ProjectCard = ({name, description, emails}) => (
     <CardContent>
         <Typography variant="h5" component="div">
@@ -25,8 +24,8 @@ const ProjectCard = ({name, description, emails}) => (
         </Typography>
     </CardContent>
 )
-const getPublicProjects = async () => {
-    const { data } = await axios.get(`${API_BASE_URL}/getPublicProjects`)
+const getPublicProjects = async ({axiosPrivate}) => {
+    const { data } = await axiosPrivate.get(`${API_BASE_URL}/getPublicProjects`)
     return data
 }
 function getPublicProjectsQuery() {
@@ -43,10 +42,11 @@ function getPublicProjectsQuery() {
 export default function PublicProjectList() {
     const { auth } = useAuth()
     const userid = jwtDecode(String(auth)).id
-    const { status, data: projects, error, isLoading } = getPublicProjectsQuery()
+    const { status, data: projects, error, isLoading } = getPublicProjectsQuery({axiosPrivate})
+    const axiosPrivate = useAxiosPrivate()
     const copyProject = useMutation({
         mutationFn: (id) => {
-            axios.post(`${API_BASE_URL}${COPY_ROUTE}`, {
+            axiosPrivate.post(`${API_BASE_URL}${COPY_ROUTE}`, {
                 projectid: String(id),
                 userid: String(userid),
             })
@@ -57,7 +57,6 @@ export default function PublicProjectList() {
         copyProject.mutate(id)
     }
     const handleButtonClick = ({id, emails}) => {
-        console.log("emails from handleButtonClick: ", emails)  
         navigate(`/project/${id}`,  {state: { public: 1, emails:emails}})
     }
     if (isLoading) {

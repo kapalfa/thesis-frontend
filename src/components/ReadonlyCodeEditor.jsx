@@ -2,7 +2,7 @@ import { Editor } from '@monaco-editor/react'
 import { useContext, useRef, useMemo, useState } from 'react'
 import { FileContext } from './MainView'
 import getLanguage from '../../languageDetection/detectLang.js'
-import axios from 'axios'
+import useAxiosPrivate from '../hooks/useAxiosPrivate.js'
 import Grid from '@mui/material/Grid'
 import Shell from './Shell.jsx'
 import { useQuery } from '@tanstack/react-query'
@@ -12,11 +12,12 @@ export default function ReadonlyCodeEditor(){
   const [ fileContent, setFileContent ] = useState('')
   const { selectedFile } = useContext(FileContext)
   const editorRef = useRef(null)
- 
+  const axiosPrivate = useAxiosPrivate()
+  
   const { status, data } = useQuery({
     queryKey: ['file', selectedFile],
     queryFn: async () => {
-      const res = await axios.get(`${API_BASE_URL}/getFile/${selectedFile}`,{
+      const res = await axiosPrivate.get(`${API_BASE_URL}/getFile/${selectedFile}`,{
         params: {
           _: new Date().getTime()
         }

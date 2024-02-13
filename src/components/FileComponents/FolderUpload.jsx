@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { API_BASE_URL } from "../../constant";
 import { Button, DialogContent } from "@mui/material";
 import { Dialog, DialogTitle, DialogActions } from "@mui/material";
 import { useState } from "react";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
-const postFolder = ({formData, path}) => {
-    axios.post(`${API_BASE_URL}/uploadFolder/${path}`, formData)
+const postFolder = ({formData, path, axiosPrivate}) => {
+    axiosPrivate.post(`${API_BASE_URL}/uploadFolder/${path}`, formData)
     .then((res) => {
         if(res.data.message === "Folder already exists") {
             alert("Folder already exists");
@@ -27,6 +27,7 @@ const usePostFolder = () => {
     return { error, mutate };
 }
 export default function FolderUpload({path, onRefresh, onClose}) {
+    const axiosPrivate = useAxiosPrivate()
     const [open, setOpen] = useState(false);
     const { error, mutate } = usePostFolder();
     if (error) console.log(error);
@@ -38,7 +39,7 @@ export default function FolderUpload({path, onRefresh, onClose}) {
             var filePath = file.webkitRelativePath;
             formData.append("folder", file, filePath);
         }
-        mutate({formData, path}, {
+        mutate({formData, path, axiosPrivate}, {
             onSuccess: () => {
                 event.target.value = null;
                 setOpen(false);

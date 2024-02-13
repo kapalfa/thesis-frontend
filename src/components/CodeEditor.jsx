@@ -2,12 +2,12 @@ import { Editor } from '@monaco-editor/react'
 import { useContext, useRef, useMemo, useEffect, useState } from 'react'
 import { FileContext } from './MainView'
 import getLanguage from '../../languageDetection/detectLang.js'
-import axios from 'axios'
-import Grid from '@mui/material/Grid'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { axiosPrivate } from '../api/axios.js'
-
+import useAxiosPrivate from '../hooks/useAxiosPrivate.js'
+import axios from '../api/axios.js'
+import { API_BASE_URL } from '../constant.js'
 export default function CodeEditor(){
+  const axiosPrivate = useAxiosPrivate()
   const queryClient = useQueryClient()
   const [ fileContent, setFileContent ] = useState('')
   const { selectedFile } = useContext(FileContext)
@@ -52,8 +52,6 @@ export default function CodeEditor(){
     },
     onSuccess: (data) => setFileContent(data.data),
     enabled: !!selectedFile,
-    staleTime: 0,
-    gcTime: 0,
   })
   
   const language = useMemo(() => { // this runs before useEffect
@@ -85,14 +83,6 @@ export default function CodeEditor(){
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [selectedFile])
-    // useEffect(()=>{
-    //   if(editorRef.current && selectedFile){
-    //     const model = editorRef.current.getModel()
-    //     model.setValue(content)
-    //   } else if(editorRef.current){
-    //       model.setValue('')
-    //   }
-    // }, [selectedFile])
   function handleEditorDidMount(editor, monaco) {
     editorRef.current = editor;   
   }

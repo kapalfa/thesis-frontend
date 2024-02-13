@@ -44,9 +44,9 @@ export default function Register() {
       if (response.data.status === "error") {
         if (response.data.message === "User already exists") {
           formik.setErrors({email: "User already exists"})
-        }
+        }//if response ok, navigate to confirmation page with a form to input the token
       } else {
-        navigate("/login")
+        navigate("/confirmEmail")
       }
     })
     .catch(function (error) {

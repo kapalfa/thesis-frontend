@@ -1,9 +1,8 @@
 import React from 'react'
-import axios from 'axios'
 import useAuth from '../hooks/useAuth'
 import useGit from '../hooks/useGit'
 import { jwtDecode } from 'jwt-decode'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation } from '@tanstack/react-query'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -16,7 +15,9 @@ import { API_BASE_URL } from '../constant'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import { useState } from 'react'
 import Tooltip from '@mui/material/Tooltip'
-import GroupsIcon from '@mui/icons-material/Groups';
+import GroupsIcon from '@mui/icons-material/Groups'
+import useAxiosPrivate from '../hooks/useAxiosPrivate'
+import * as yup from 'yup'
 const ProjectCard = ({ id, name, description }) => (
     <Link to={`/project/${id}`} >
         <CardContent>
@@ -49,8 +50,8 @@ const theme = createTheme({
         },
      },
 })
-const getProjectsByUserid = async (auth, userid) => {
-    const { data } = await axios.get(`${API_BASE_URL}/getProjects/${userid}`, {
+const getProjectsByUserid = async (auth, userid, axiosPrivate) => {
+    const { data } = await axiosPrivate.get(`${API_BASE_URL}/getProjects/${userid}`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${auth}`
@@ -58,13 +59,13 @@ const getProjectsByUserid = async (auth, userid) => {
     })
     return data
 }
-function getProjects(auth){ 
+function getProjects(auth, axiosPrivate){ 
     const decoded = jwtDecode(String(auth))
     const userid = decoded.id
   
     return useQuery({
         queryKey: ['projects', userid],
-        queryFn: () => getProjectsByUserid(auth, userid),
+        queryFn: () => getProjectsByUserid(auth, userid, axiosPrivate),
         enabled: !!userid,
         staleTime: 30000,
         select: (data) => {
@@ -73,21 +74,41 @@ function getProjects(auth){
         },
     })
 }
+function createInvitation(axiosPrivate) {
+    const mutate = useMutation({
+        mutationFn: (email, id) => {
+            try {
+                const res = axiosPrivate.post(`${API_BASE_URL}/createInvitation`, { email: email, id: id })
+                return res
+            } catch (error) {
+                console.log(error)
+            }   
+        },
+    })
+    return mutate
+}
+const schema = yup.object().shape({
+    email: yup.string().email('Invalid email address').required('Required'),
+})
 export default function ProjectList() { 
+    const axiosPrivate = useAxiosPrivate()
     const { git } = useGit()
     const { auth } = useAuth()
-    const { status, data : projects, error, isLoading, refetch } = getProjects(auth)
-    const [ showForm, setShowForm ] = useState(false)
+    const { status, data : projects, error, isLoading, refetch } = getProjects(auth, axiosPrivate)
+    const mutation = createInvitation(axiosPrivate)
+    const [ showForm, setShowForm ] = useState(null)
     const [click, setClick] = useState(-1)
     const [ email, setEmail ] = useState('')
     const handleDelete = (id) => {
-        axios.delete(`${API_BASE_URL}/deleteProject/${id}`)
-        .then(() => {
-            refetch()
-        })  
-        .catch((error) => {
-            console.log(error)
-        })
+        if(window.confirm('Are you sure you want to delete this project?')) {
+            axiosPrivate.delete(`${API_BASE_URL}/deleteProject/${id}`)
+            .then(() => {
+                refetch()
+            })  
+            .catch((error) => {
+                console.log(error)
+            })
+        }
     }  
     useQuery({
         queryKey: ['gitInit'],
@@ -95,15 +116,14 @@ export default function ProjectList() {
             const decoded = jwtDecode(String(auth))
             const userid = decoded.id
 
-            const res = await axios.post(`https://localhost:8443/github/initRepo`, { userid: userid, projectid: click })
-            console.log("res: ", res)
+            const res = await axiosPrivate.post(`https://localhost:8443/github/initRepo`, { userid: userid, projectid: click })
             setClick(-1)
             return res
         },
         enabled: click !== -1,
     })
-    const handleIconClick = () => {
-        setShowForm(true)
+    const handleIconClick = (id) => {
+        setShowForm(id)
     }
     const handleInputChange = (e) => {
         setEmail(e.target.value)
@@ -111,15 +131,13 @@ export default function ProjectList() {
     const handleFormSubmit = async (e, id) => {
         e.preventDefault()
         try {
-            console.log("id: ", typeof(id))
-            const res = await axios.post(`https://localhost:8443/api/createInvitation`, { email: email, id: id })
-            console.log("res: ", res)
-            return res
+            await schema.validate({ email })
         } catch (error) {
-            console.log(error)
-        }    
-        setEmail('')
-       
+            alert(error.errors[0])
+            return
+        }
+        mutation.mutate(email, id)
+        setEmail(''),
         setShowForm(false)
     }
     if (isLoading) {
@@ -136,7 +154,7 @@ export default function ProjectList() {
            <ThemeProvider theme={theme}>
                 <Grid container spacing={3} sx={{width: '100%'}}>
                     {projects.map(({id, name, description}) => {
-                       return (
+                        return (
                             <Grid item xs={12} sm={6} md={4} key={id}>
                                 <Card variant="outlined">
                                     <ProjectCard id={id} name={name} description={description}/>
@@ -146,27 +164,25 @@ export default function ProjectList() {
                                     </IconButton >
                                     </Tooltip>
                                     {git && <Tooltip title="Initialize Github Repository" placement="bottom">
-                                    <IconButton onClick={()=>setClick(id)} >
-                                       <GitHubIcon />
-                                    </IconButton>
+                                        <IconButton onClick={()=>setClick(id)} >
+                                            <GitHubIcon />
+                                        </IconButton>
                                     </Tooltip>}
                                     <Tooltip title="Invite Collaborators" placement="bottom">
-                                    <IconButton onClick={handleIconClick}>
+                                    <IconButton onClick={()=>handleIconClick(id)} >
                                         <GroupsIcon />  
-                                    {showForm && (
+                                    {showForm === id && (
                                     <form onSubmit={(e)=>handleFormSubmit(e, id)}>
                                         <label>
                                             Email:
                                             <input type="text" value={email} onChange={handleInputChange} />
                                         </label>
                                         <input type="submit" value="Submit" />
-                                    </form>
-                    )}
+                                    </form>)}
                                     </IconButton>
                                     </Tooltip>
                                 </Card>
-                            </Grid>
-                        )
+                            </Grid>)
                     })}
                 </Grid>
             </ThemeProvider>

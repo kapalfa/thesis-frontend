@@ -17,6 +17,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import AccessTokenFetcher from './components/GithubComponents/GithubCallback'
 import PublicProjectList from './components/PublicProjects'
 import { GitProvider } from './context/GitProvider'
+import EmailConfirmation from './components/EmailConfirmationPage'
 // import PersistLogin from './components/AuthComponentsPersistLogin'
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
       //},  
    // ]
   //},
+  {
+    path: "/confirmEmail",
+    element: <EmailConfirmation/>,
+  },
   {
     path: "/main",
     element: <RequireAuth/>,

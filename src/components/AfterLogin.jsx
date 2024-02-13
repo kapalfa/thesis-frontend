@@ -10,27 +10,25 @@ import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import CardActions from '@mui/material/CardActions';
-import InvitationList from "./InvitationList.jsx";
 import DownloadRepo from "./GithubComponents/GithubDownload.jsx";
 import useGit from "../hooks/useGit.js";
-import './AfterLoginPage.css'
 export default function Main(){
     const navigate = useNavigate()
     const { git } = useGit()
     const card = (
         <Box display="flex" justifyContent="center" maxHeight="170px">
-        <Card variant="outlined" style={{ width: '70%', backgroundColor: '#333333'}} >
+        <Card variant="outlined" style={{ width: '70%'}} >
             <CardContent>
-                <Typography variant="h5" component="div" color="#e21b5a">
+                <Typography variant="h5" component="div">
                     Public Projects 
                 </Typography>
-                <Typography sx={{ mb: 1.5 }} color="#e21b5a">
+                <Typography sx={{ mb: 1.5 }}>
                     Discover new projects to collaborate on<br/>
                     See what other people are working on 
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small" onClick={()=>navigate('/public')} style={{color: "#83a300"}}>
+                <Button size="small" onClick={()=>navigate('/public')}>
                     Explore public projects
                 </Button>
             </CardActions>
@@ -38,11 +36,11 @@ export default function Main(){
         </Box>
     )
     return(
-        <div className="page-container" height="100vh" color="#353634">
+        <Box sx={{bgcolor: '#292522', height: '100vh'}}>
         <Grid container direction="column" spacing={2} height="100%">
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
                 <SearchAppBar/>
-            </Grid>
+            </Grid> */}
             <Grid container item xs={12} spacing={2}>
                 <Grid item xs={4} style={{ display: 'flex', flexDirection: 'column' }}>
                     <Grid container direction="column" justifyContent="center" >
@@ -59,9 +57,6 @@ export default function Main(){
                         <Grid item xs={12} sm={8} md={6} style={{flex:0.5, padding: '10px'}}>
                             {card}
                         </Grid>
-                        <Grid item xs={12} sm={8} md={6} style={{flex:1.5, padding: '10px'}}>    
-                            <InvitationList />
-                        </Grid>
                     </Grid>
                 </Grid>
                 <Grid item xs={8}>
@@ -69,6 +64,6 @@ export default function Main(){
                 </Grid>   
             </Grid>
         </Grid>
-        </div>
+        </Box>
     )
 }

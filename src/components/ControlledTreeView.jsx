@@ -5,13 +5,11 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useState, useContext, useEffect } from 'react';
 import { FileContext } from './MainView'
 import { useParams } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
 import FileTree from './FileTree';
 import ReadonlyFileTree from './ReadOnlyFileTree';
 import useGetFilesByProject from '../hooks/useGetFilesByProject';
 
 export default function ControlledTreeView({readonly}) {
-    const { auth } = useAuth()
     const { setSelectedFile } = useContext(FileContext);
     const { id } = useParams();
     const { status, data: files, refetch, error } = useGetFilesByProject(id)

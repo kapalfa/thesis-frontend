@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
 import { API_BASE_URL } from '../../constant';
 import { Dialog } from '@mui/material';
@@ -7,9 +6,9 @@ import { DialogTitle } from '@mui/material';
 import { DialogContent } from '@mui/material';
 import { DialogActions } from '@mui/material';
 import Button from '@mui/material/Button';
-
-const createFolder = ({foldername, path}) => {
-    axios.post(`${API_BASE_URL}/createFolder/${path}`, {foldername})
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+const createFolder = ({foldername, path, axiosPrivate}) => {
+    axiosPrivate.post(`${API_BASE_URL}/createFolder/${path}`, {foldername})
     .then((response) => {
         if (response.data.message=="Folder already exists"){
             alert("Folder already exists")
@@ -31,11 +30,12 @@ export default function CreateFolder({path, onRefresh, onClose}) {
     const [open, setOpen] = useState(true);
     const { error, mutate } = useCreateFolder();
     if (error) console.log(error);
+    const axiosPrivate = useAxiosPrivate();
 
     const handleCreateFolder = (event) => {
         event.preventDefault();
         const foldername = event.target.foldername.value;
-        mutate({foldername, path}, {
+        mutate({foldername, path, axiosPrivate}, {
             onSuccess: () => {
                 event.target.value = null;
                 setOpen(false);
