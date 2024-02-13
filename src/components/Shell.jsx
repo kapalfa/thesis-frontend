@@ -13,7 +13,7 @@ function Shell() {
     const userid = jwtDecode(auth).id
     const { id } = useParams()
     const socketURL = `${API_WS_URL}/sockets/projId=${id}&userId=${userid}`
-    console.log('socketURL: ', API_WS_URL)
+    console.log('socketURL: ', socketURL)
     const { sendMessage, lastMessage, getWebSocket } = useWebSocket(socketURL, {
         onOpen: () => { openInitTerminal(), runTerminal() },
         retryOnError: true,
