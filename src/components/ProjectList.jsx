@@ -51,7 +51,7 @@ const theme = createTheme({
      },
 })
 const getProjectsByUserid = async (auth, userid, axiosPrivate) => {
-    const { data } = await axiosPrivate.get(`${API_BASE_URL}/getProjects/${userid}`, {
+    const { data } = await axiosPrivate.get(`/getProjects/${userid}`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${auth}`
@@ -78,7 +78,7 @@ function createInvitation(axiosPrivate) {
     const mutate = useMutation({
         mutationFn: (email, id) => {
             try {
-                const res = axiosPrivate.post(`${API_BASE_URL}/createInvitation`, { email: email, id: id })
+                const res = axiosPrivate.post(`/createInvitation`, { email: email, id: id })
                 return res
             } catch (error) {
                 console.log(error)

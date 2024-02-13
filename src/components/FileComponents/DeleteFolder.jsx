@@ -5,7 +5,7 @@ import { FileContext } from '../MainView';
 import { useContext } from 'react';
 import { useEffect } from 'react';
 const deleteFolder = ({ path, axiosPrivate }) => {
-    axiosPrivate.delete(`${API_BASE_URL}/deleteFolder/${path}`)
+    axiosPrivate.delete(`/deleteFolder/${path}`)
     .then((response)=>{
         console.log(response.data)
     })

@@ -6,24 +6,24 @@ export default defineConfig({
   //   exclude: ['fsevents']
   // },
   plugins: [react()],
-  esbuild: {
-    loader: 'jsx',
-    include: [
-      "src/*.jsx",
-      "src/**/*.jsx",
-    ],
-    exclude: /node_modules/,
-  },
+  // esbuild: {
+  //   loader: 'jsx',
+  //   include: [
+  //     "src/*.jsx",
+  //     "src/**/*.jsx",
+  //   ],
+  //   exclude: /node_modules/,
+  // },
  server: {
-    // proxy: {
-    //   "/": {
-    //     target: "https://code-editor-eusldaqlhq-zf.a.run.app",
-    //     changeOrigin: true,
-    //   },
-    //   }
-    https: {
-      key : fs.readFileSync('/home/andromachi/Documents/go/backend/localhost-key.pem'),
-       cert: fs.readFileSync('/home/andromachi/Documents/go/backend/localhost.pem'),
-    },
+    proxy: {
+      "/": {
+        target: "https://code-editor-eusldaqlhq-zf.a.run.app",
+        changeOrigin: true,
+      },
+      }
+    // https: {
+    //   key : fs.readFileSync('/home/andromachi/Documents/go/backend/localhost-key.pem'),
+    //    cert: fs.readFileSync('/home/andromachi/Documents/go/backend/localhost.pem'),
+    // },
   },
 })

@@ -5,7 +5,6 @@ import getLanguage from '../../languageDetection/detectLang.js'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import useAxiosPrivate from '../hooks/useAxiosPrivate.js'
 import axios from '../api/axios.js'
-import { API_BASE_URL } from '../constant.js'
 export default function CodeEditor(){
   const axiosPrivate = useAxiosPrivate()
   const queryClient = useQueryClient()
@@ -43,7 +42,7 @@ export default function CodeEditor(){
   const { status, data } = useQuery({
     queryKey: ['file', selectedFile],
     queryFn: async () => {
-      const res = await axios.get(`${API_BASE_URL}/getFile/${selectedFile}`,{
+      const res = await axios.get(`/getFile/${selectedFile}`,{
         params: {
           _: new Date().getTime()
         }

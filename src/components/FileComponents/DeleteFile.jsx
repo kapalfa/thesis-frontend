@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 const deleteFile = ({path, axiosPrivate}) => {
-    axiosPrivate.delete(`${API_BASE_URL}/deleteFile/${path}`)
+    axiosPrivate.delete(`/deleteFile/${path}`)
     .then((response)=>{
         console.log(response.data)
     })

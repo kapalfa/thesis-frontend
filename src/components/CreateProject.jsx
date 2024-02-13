@@ -47,7 +47,7 @@ export default function CreateProjectForm () {
             public: jsonObject.isPublic === 'on'
         }
         try {
-            const response = await axiosPrivate.post(`${API_BASE_URL}/createProject`, requestData, {
+            const response = await axiosPrivate.post(`/createProject`, requestData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

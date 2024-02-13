@@ -22,7 +22,7 @@ export default function Info() {
     const collaborators = useQuery({
         queryKey: ['collaborators'],
         queryFn: async () => {
-            const { data } = await axiosPrivate.get(`${API_BASE_URL}/getCollaborators/${projectId.id}/${id}`)
+            const { data } = await axiosPrivate.get(`/getCollaborators/${projectId.id}/${id}`)
             return data
         },
         select: (data) => {

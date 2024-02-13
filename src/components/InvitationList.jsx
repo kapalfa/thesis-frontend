@@ -7,7 +7,7 @@ export default function getInvitations(){
     return useQuery({
         queryKey: ['invitations'],
         queryFn: async () => {
-            const {data} = await axiosPrivate.get(`${API_BASE_URL}/getInvitations`)
+            const {data} = await axiosPrivate.get(`/getInvitations`)
             return data
         },
         select: (data) => {

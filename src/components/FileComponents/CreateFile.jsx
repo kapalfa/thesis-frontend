@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 import { DialogActions, DialogContent, DialogTitle, Dialog } from '@mui/material'
 import Button from '@mui/material/Button'
 const createFile = ({filename, path, axiosPrivate}) => {
-    axiosPrivate.post(`${API_BASE_URL}/createFile/${path}`, {filename})
+    axiosPrivate.post(`/createFile/${path}`, {filename})
     .then((response) => {
         if (response.data.message=="File already exists"){
             alert("File already exists")

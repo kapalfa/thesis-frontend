@@ -11,7 +11,6 @@ import axios from 'axios'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useNavigate } from 'react-router-dom'
-import { API_BASE_URL, REGISTER_ROUTE } from '../../constant'
 const defaultTheme = createTheme()
 
 export default function Register() {
@@ -35,7 +34,7 @@ export default function Register() {
   })
  
   const handleSubmit = (values) => {
-    axios.post(`${API_BASE_URL}${REGISTER_ROUTE}`, values, {
+    axios.post(`/register`, values, {
       headers: {
         'Content-Type' : 'application/json'
       }

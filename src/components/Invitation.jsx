@@ -10,7 +10,7 @@ function postInvitationResponse(){
     const queryClient = useQueryClient()
     return useMutation({
         mutationFn: ({id, response}) => {
-            return axiosPrivate.post(`${API_BASE_URL}/handleInvitation/${id}`, {response})},
+            return axiosPrivate.post(`/handleInvitation/${id}`, {response})},
         onSuccess: () => {
             queryClient.invalidateQueries(['invitations'])
         }

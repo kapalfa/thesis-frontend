@@ -17,7 +17,7 @@ export default function ReadonlyCodeEditor(){
   const { status, data } = useQuery({
     queryKey: ['file', selectedFile],
     queryFn: async () => {
-      const res = await axiosPrivate.get(`${API_BASE_URL}/getFile/${selectedFile}`,{
+      const res = await axiosPrivate.get(`/getFile/${selectedFile}`,{
         params: {
           _: new Date().getTime()
         }

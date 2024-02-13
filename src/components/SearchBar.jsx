@@ -50,7 +50,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const searchProject = async ({debouncedSearchInput, axiosPrivate}) => {
-  const { data } = await axiosPrivate.get(`${API_BASE_URL}/searchProjects/${debouncedSearchInput}`)
+  const { data } = await axiosPrivate.get(`/searchProjects/${debouncedSearchInput}`)
   return data
 }
 

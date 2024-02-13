@@ -8,7 +8,7 @@ export default function EmailConfirmation() {
     const navigate = useNavigate()
     const mutation = useMutation({
         mutationFn: () => {
-            return axios.post(`${API_BASE_URL}/confirmEmail`, {confirmationCode})
+            return axios.post(`/confirmEmail`, {confirmationCode})
         },
         onSuccess: () => {
             navigate('/login')

@@ -25,7 +25,7 @@ const ProjectCard = ({name, description, emails}) => (
     </CardContent>
 )
 const getPublicProjects = async ({axiosPrivate}) => {
-    const { data } = await axiosPrivate.get(`${API_BASE_URL}/getPublicProjects`)
+    const { data } = await axiosPrivate.get(`/getPublicProjects`)
     return data
 }
 function getPublicProjectsQuery() {
