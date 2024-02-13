@@ -1,11 +1,9 @@
 import React from 'react'
 import { Grid, Paper, Box, TextField, Button, Typography, FormControlLabel } from '@mui/material'
-import axios from 'axios'
+import axios from '../../api/axios'
 import useAuth from '../../hooks/useAuth'
 import { jwtDecode } from 'jwt-decode'
 import { useMutation } from '@tanstack/react-query'
-import Switch from '@mui/material/Switch'
-
 
 export default function DownloadRepo () {
     const { auth } = useAuth()

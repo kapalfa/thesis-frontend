@@ -1,5 +1,5 @@
 import React from "react"
-import axios from "axios"
+import axios from "../../api/axios"
 import Button from '@mui/material/Button'
 
 export default function GithubLogin () {

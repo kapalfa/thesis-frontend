@@ -1,8 +1,9 @@
 import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
+import useAxiosPrivate from './useAxiosPrivate'
 
 const postFile = ({formData, path}) => {
-    axios.post(`/upload/${path}`, formData)
+    const axiosPrivate = useAxiosPrivate()
+    axiosPrivate.post(`/upload/${path}`, formData)
     .then(res => {
         if(res.data.message=="File already exists"){
             alert("File already exists")

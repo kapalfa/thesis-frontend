@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import axios from '../api/axios'
 export default function EmailConfirmation() {
     const [ confirmationCode, setConfirmationCode ] = useState('')
     const navigate = useNavigate()

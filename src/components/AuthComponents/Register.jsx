@@ -7,7 +7,7 @@ import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { Link }  from "react-router-dom"
-import axios from 'axios'
+import axios from '../api/axios'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useNavigate } from 'react-router-dom'

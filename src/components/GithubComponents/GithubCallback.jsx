@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom"
-import axios from "axios"
+import axios from "../../api/axios"
 import useAuth from "../../hooks/useAuth" 
 import useGit from "../../hooks/useGit"
 import { useNavigate } from "react-router-dom"
