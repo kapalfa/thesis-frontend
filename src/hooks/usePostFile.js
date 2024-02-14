@@ -16,7 +16,7 @@ const postFile = (axiosPrivate, {formData, path}) => {
 export const usePostFile = () => {
     const axiosPrivate = useAxiosPrivate()
     const { error, mutate } = useMutation({
-        mutationFn: postFile(axiosPrivate),
+        mutationFn: (data) => postFile(axiosPrivate, data),
     })
     return { error, mutate }
 }
