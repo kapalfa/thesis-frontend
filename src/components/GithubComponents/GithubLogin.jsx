@@ -4,10 +4,10 @@ import Button from '@mui/material/Button'
 
 export default function GithubLogin () {
     const handleGithubLogin = async () => {
-        axios.get(`/github/login`)
+        axios.get('/github/login')
             .then(function (response) {
                 console.log("response from github login: ", response)
-              window.location.href = response.data
+                window.location.href = response.data
             })
             .catch(function (error) {
                 console.log("error: ", error)

@@ -38,7 +38,6 @@ export default function Chat(){
             const messageSender = messageObject.senderId
             const messageEmail = messageObject.email
             const liveUsers = messageObject.liveUsers
-            console.log("liveUsers: ", liveUsers)
             setMessages((prevMessages) => [...prevMessages, {id : messageSender, message: messageContent, email: messageEmail, liveUsers}])},
         //retryOnError: true,
         //shouldReconnect: (closeEvent) => true,
