@@ -13,7 +13,7 @@ export default function ToggleChat() {
         backgroundColor: "#002c2b",
       }}
     >
-      {!showChat ? (
+      {!showShell ? (
         <div
           style={{
             height: "100%",
