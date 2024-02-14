@@ -23,7 +23,7 @@ const queryClient = new QueryClient()
 const router = createBrowserRouter([
   
   {
-      path: "/", // landing page
+      path: "/", 
       element: <LandingPage/> ,
       errorElement: <ErrorPage/>,
   },
@@ -93,7 +93,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/github/callback",
-    element: <AccessTokenFetcher  />,
+    element: <AccessTokenFetcher />,
   },
   {
     path: "*",

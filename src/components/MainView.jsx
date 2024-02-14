@@ -3,9 +3,9 @@ import ControlledTreeView from './ControlledTreeView.jsx'
 import { useLocation } from 'react-router-dom'
 import CodeEditor from './CodeEditor.jsx'
 import ReadonlyCodeEditor from './ReadonlyCodeEditor.jsx'
-import Shell from './Shell.jsx'
 import Info from './Info.jsx'
 import ToggleChat from './ToggleChat.jsx'
+import ToggleShell from './ToggleShell.jsx'
 export const FileContext = createContext();
 
 export default function BasicGrid(){
@@ -27,7 +27,7 @@ export default function BasicGrid(){
           {readonly && <ReadonlyCodeEditor />}
         </div>      
         <div style={{flex: '0 0 40%', display: 'flex', flexDirection: 'column'}} >
-          <Shell /> 
+          <ToggleShell /> 
           <div style={{margin: 10}}>    
             <ToggleChat/>
           </div> 
