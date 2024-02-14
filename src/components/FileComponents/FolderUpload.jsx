@@ -6,7 +6,13 @@ import { useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const postFolder = ({formData, path, axiosPrivate}) => {
-    axiosPrivate.post(`/uploadFolder/${path}`, formData)
+    axiosPrivate.post(`/uploadFolder/${path}`, formData,
+    {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        },
+        withCredentials: true
+    })
     .then((res) => {
         if(res.data.message === "Folder already exists") {
             alert("Folder already exists");
