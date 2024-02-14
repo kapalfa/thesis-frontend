@@ -1,11 +1,29 @@
 import React from 'react'
-import { usePostFile } from '../../hooks/usePostFile'
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material'
 import { useState, useEffect } from 'react'
-
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
+import { useMutation } from '@tanstack/react-query'
 export default function FileUpload({path, onRefresh, onClose}){
     const [open, setOpen] = useState(false)
-    const { error, mutate } = usePostFile(path)
+    const axiosPrivate = useAxiosPrivate()
+    const { error, mutate } = useMutation({
+        mutationFn: ({formData, path}) => {
+            axiosPrivate.post(`/upload/${path}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                withCredentials: true
+            })
+            .then(res => {
+                if(res.data.message=="File already exists"){
+                    alert("File already exists")
+                }
+            }) 
+            .catch(err => {
+                console.log(err)
+            })
+        },
+    })
     if (error) {
         console.log(error)
         return 
@@ -14,7 +32,6 @@ export default function FileUpload({path, onRefresh, onClose}){
         const file = event.target.files[0]
         const formData = new FormData()
         formData.append('file', file)
-         
         mutate({formData, path}, {
             onSuccess: () => {
                 event.target.value = null
