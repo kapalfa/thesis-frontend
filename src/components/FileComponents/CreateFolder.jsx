@@ -7,7 +7,9 @@ import { DialogActions } from '@mui/material';
 import Button from '@mui/material/Button';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 const createFolder = ({foldername, path, axiosPrivate}) => {
-    axiosPrivate.post(`/createFolder/${path}`, {foldername})
+    console.log("path on createFolder: ", path)
+    console.log("foldername on createFolder: ", foldername)
+    axiosPrivate.post(`/createFolder/${path}`, {name: foldername})
     .then((response) => {
         if (response.data.message=="Folder already exists"){
             alert("Folder already exists")
