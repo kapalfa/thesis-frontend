@@ -6,10 +6,19 @@ const useGetFilesByProject = (projectId) => {
 
     return useQuery({
         queryKey: ['files', projectId], 
-        queryFn: async () => {
-        const { data } = await axiosPrivate.get(`/getFiles/${projectId}`)
-        return data
-        },
+        queryFn: () => new Promise((resolve, reject) => {
+            setTimeout( async () => {
+                try {
+                    const { data } = await axiosPrivate.get(`/getFiles/${projectId}`)
+                    resolve(data)
+                } catch (error) {
+                    reject(error)
+                }
+            }, 2000)
+        }),
+   //     const { data } = await axiosPrivate.get(`/getFiles/${projectId}`)
+     //   return data
+       // },
         enabled: !!projectId,
     })
 }
