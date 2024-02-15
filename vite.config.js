@@ -20,10 +20,10 @@ export default defineConfig({
         target: "https://code-editor-eusldaqlhq-zf.a.run.app",
         changeOrigin: true,
       },
-      }
-    // https: {
-    //   key : fs.readFileSync('/home/andromachi/Documents/go/backend/localhost-key.pem'),
-    //    cert: fs.readFileSync('/home/andromachi/Documents/go/backend/localhost.pem'),
-    // },
+      },
+    https: {
+      key : fs.readFileSync('/home/andromachi/Documents/go/backend/localhost-key.pem'),
+      cert: fs.readFileSync('/home/andromachi/Documents/go/backend/localhost.pem'),
+    },
   },
 })

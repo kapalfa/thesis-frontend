@@ -14,7 +14,9 @@ import * as yup from 'yup'
 import GithubLogin from '../GithubComponents/GithubLogin'
 import axios from '../../api/axios'
 
-const defaultTheme = createTheme()
+const defaultTheme = createTheme(
+  
+)
 
 const schema = yup.object().shape({
   email: yup.string().email('Invalid email address').required('Required'),  
