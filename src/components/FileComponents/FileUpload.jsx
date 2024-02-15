@@ -8,6 +8,8 @@ export default function FileUpload({path, onRefresh, onClose}){
     const axiosPrivate = useAxiosPrivate()
     const { error, mutate } = useMutation({
         mutationFn: ({formData, path}) => {
+            console.log("path on fileUpload: ", path)
+            console.log("formData on fileUpload: ", formData)
             axiosPrivate.post(`/upload/${path}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'

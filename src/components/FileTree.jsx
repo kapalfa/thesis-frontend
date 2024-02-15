@@ -67,6 +67,7 @@ export default function FileTree({ files, setRefresh, handleFileClick, setAllNod
                         event.preventDefault(); 
                         event.stopPropagation(); 
                         handleClick(event, node.filepath)
+                        console.log('node.filepath: ', node.filepath)
                     }}
                 >
                     {nodeId == '0' ? 'Files' : node.name} 
