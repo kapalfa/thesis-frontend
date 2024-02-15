@@ -22,8 +22,8 @@ export default defineConfig({
       },
       },
     https: {
-      key : fs.readFileSync('/home/andromachi/Documents/go/backend/localhost-key.pem'),
-      cert: fs.readFileSync('/home/andromachi/Documents/go/backend/localhost.pem'),
+      key : fs.readFileSync('./localhost-key.pem'),
+      cert: fs.readFileSync('./localhost.pem'),
     },
   },
 })
