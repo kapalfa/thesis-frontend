@@ -5,8 +5,6 @@ import { useState, useEffect } from 'react'
 import { DialogActions, DialogContent, DialogTitle, Dialog } from '@mui/material'
 import Button from '@mui/material/Button'
 const createFile = ({filename, path, axiosPrivate}) => {
-    console.log("path ", path)
-    console.log("filename: ", filename)
     axiosPrivate.post(`/createFile/${path}`, {name: filename},
     {
         headers: {

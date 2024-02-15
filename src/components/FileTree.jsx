@@ -37,6 +37,7 @@ export default function FileTree({ files, setRefresh, handleFileClick, setAllNod
         setAnchorEl(null)
     }
     const handleFileUpload = (path) => {
+        console.log('path in file upload ', path)
         setUpload(path)
         handleClose()
     }
@@ -67,6 +68,7 @@ export default function FileTree({ files, setRefresh, handleFileClick, setAllNod
                         event.preventDefault(); 
                         event.stopPropagation(); 
                         handleClick(event, node.filepath)
+                        console.log('node: ', node)
                         console.log('node.filepath: ', node.filepath)
                     }}
                 >
