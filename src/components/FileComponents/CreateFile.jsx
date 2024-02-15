@@ -43,7 +43,7 @@ export default function CreateFile({path, onRefresh, onClose}) {
                 event.target.value = null
                 setOpen(false)
                 onClose()
-                setTimeout(onRefresh, 2000) // add delay
+                setTimeout(onRefresh, 1000) // add delay
             }
         })
     }

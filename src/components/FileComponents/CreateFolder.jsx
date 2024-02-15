@@ -8,8 +8,6 @@ import Button from '@mui/material/Button';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const createFolder = ({foldername, path, axiosPrivate}) => {
-    console.log("path on createFolder: ", path)
-    console.log("foldername on createFolder: ", foldername)
     axiosPrivate.post(`/createFolder/${path}`, {name: foldername}, {
         headers: {
             'Content-Type': 'application/json'
@@ -36,20 +34,20 @@ const useCreateFolder = () => {
 }
 
 export default function CreateFolder({path, onRefresh, onClose}) {
-    const [open, setOpen] = useState(true);
-    const { error, mutate } = useCreateFolder();
-    if (error) console.log(error);
-    const axiosPrivate = useAxiosPrivate();
+    const [open, setOpen] = useState(true)
+    const { error, mutate } = useCreateFolder()
+    if (error) console.log(error)
+    const axiosPrivate = useAxiosPrivate()
 
     const handleCreateFolder = (event) => {
         event.preventDefault();
         const foldername = event.target.foldername.value;
         mutate({foldername, path, axiosPrivate}, {
             onSuccess: () => {
-                event.target.value = null;
-                setOpen(false);
-                onClose();
-                onRefresh();
+                event.target.value = null
+                setOpen(false)
+                onClose()
+                setTimeout(onRefresh(), 1000) // add delay
             }
         });
     }

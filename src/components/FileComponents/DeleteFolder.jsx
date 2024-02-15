@@ -31,7 +31,7 @@ export default function DeleteFolder({ path, onRefresh, onClose }) {
             onSuccess: () => {
                 setSelectedFile(null)
                 onClose()
-                onRefresh()
+                setTimeout(onRefresh(), 1000) // add delay
             }
         })    
     }

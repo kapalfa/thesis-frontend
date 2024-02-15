@@ -15,17 +15,18 @@ export default function FileUpload({path, onRefresh, onClose}){
                 withCredentials: true
             })
             .then(res => {
+                console.log("resdata: ", res.data)
                 if(res.data.message=="File already exists"){
                     alert("File already exists")
                 }
             }) 
             .catch(err => {
-                console.log(err)
+                console.log("errrro: ", err)
             })
         },
     })
     if (error) {
-        console.log(error)
+        console.log("ER: ", error)
         return 
     }
     const handleUploadFile = async (event) => {
@@ -37,7 +38,7 @@ export default function FileUpload({path, onRefresh, onClose}){
                 event.target.value = null
                 setOpen(false)
                 onClose()
-                onRefresh()
+                setTimeout(onRefresh(), 1000) // add delay
             }
         })
     }

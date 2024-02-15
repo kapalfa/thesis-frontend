@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import Button from '@mui/material/Button';
 import { FileContext } from '../MainView';
 import { useContext } from 'react';
@@ -28,7 +28,6 @@ export default function DeleteFile({path, onRefresh}) {
     const { setSelectedFile } = useContext(FileContext)
     const { error, mutate } = useDeleteFile()
     const axiosPrivate = useAxiosPrivate()
-    const queryClient = useQueryClient()
     if(error)
         console.log(error)
         
@@ -36,9 +35,8 @@ export default function DeleteFile({path, onRefresh}) {
         if (window.confirm('Are you sure you want to delete this file?')) {
             mutate({path, axiosPrivate}, {
                 onSuccess: () => {
-                    setSelectedFile(null)
-                    queryClient.invalidateQueries(['files', id])
-                    onRefresh()
+                    setSelectedFile(null)                    
+                    setTimeout(onRefresh(), 1000) // add delay
                 }
             })
         }
