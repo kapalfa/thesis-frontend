@@ -7,7 +7,7 @@ import Button from '@mui/material/Button'
 const createFile = ({filename, path, axiosPrivate}) => {
     console.log("path ", path)
     console.log("filename: ", filename)
-    axiosPrivate.post(`/createFile/${path}`, filename,
+    axiosPrivate.post(`/createFile/${path}`, {filename: filename},
     {
         headers: {
             'Content-Type': 'application/json'
