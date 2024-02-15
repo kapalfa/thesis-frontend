@@ -7,7 +7,12 @@ import Button from '@mui/material/Button'
 const createFile = ({filename, path, axiosPrivate}) => {
     console.log("path ", path)
     console.log("filename: ", filename)
-    axiosPrivate.post(`/createFile/${path}`, {filename})
+    axiosPrivate.post(`/createFile/${path}`, {filename},
+    {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
     .then((response) => {
         if (response.data.message=="File already exists"){
             alert("File already exists")
