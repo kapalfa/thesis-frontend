@@ -19,6 +19,9 @@ const createFolder = ({foldername, path, axiosPrivate}) => {
         if (response.data.message=="Folder already exists"){
             alert("Folder already exists")
         }
+        if (response.data.message=="Folder created successfully"){
+            console.log(response.data.message)
+        }
     })
     .catch(err => {
         console.log(err)
