@@ -12,13 +12,19 @@ export default function SetNewPassword() {
     const mutation = useMutation({
         mutationFn: () => {
             return axios.post(`/setNewPassword`, {confirmationCode, newPassword})
-        }
-    })
+        },
+            })
 
     const handleSubmit = (e) => {
         e.preventDefault()
         mutation.mutate({
-            onSuccess: () => {
+            onSuccess: (data) => {
+                if (data.message === 'Token expired') {
+                    alert('Token expired')
+                }
+                if (data.message === 'Invalid token') {
+                    alert('Invalid token')
+                }
                 navigate('/login')
             }
         })
