@@ -19,6 +19,7 @@ import PublicProjectList from './components/PublicProjects'
 import { GitProvider } from './context/GitProvider'
 import EmailConfirmation from './components/EmailConfirmationPage'
 import ForgotPassword from './components/AuthComponents/ForgotPassword'
+import SetNewPassword from './components/AuthComponents/SetNewPassword'
 // import PersistLogin from './components/AuthComponentsPersistLogin'
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
   {
     path: "/forgotPassword",
     element: <ForgotPassword  />,
+  },
+  {
+    path: "/setNewPassword",
+    element: <SetNewPassword  />,
   },
   {
     path: "*",

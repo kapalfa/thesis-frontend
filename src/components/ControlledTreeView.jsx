@@ -30,6 +30,7 @@ export default function ControlledTreeView({readonly}) {
     
     useEffect(()=> {
       if(refresh){
+        
         refetch()
         console.log("edw sto refresh")
         setRefresh(false)

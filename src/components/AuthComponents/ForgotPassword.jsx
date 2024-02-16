@@ -2,8 +2,11 @@ import * as React from 'react'
 import axios from '../../api/axios'
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
-
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
+import { useNavigate } from 'react-router-dom'
 export default function ForgotPassword() {
+    const navigate = useNavigate()  
     const [ email, setEmail ] = useState('')
     const mutation = useMutation({
         mutationFn: () => {
@@ -12,14 +15,19 @@ export default function ForgotPassword() {
     })
     const handleSubmit = (e) => {
         e.preventDefault()
-        mutation.mutate()
+        mutation.mutate({
+            onSuccess: () => {
+                navigate('/setNewPassword')
+            }
+        }
+        )
     }
     return (
-        <div>
+        <div style={{display:'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
         <h1>Enter your email</h1>
-        <form onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-            <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} required/>
-            <button type="submit">Submit</button>
+        <form onSubmit={handleSubmit}>
+            <TextField variant='outlined' label="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <Button variant="text" type="submit">Submit</Button>
         </form>
         </div>
     )
