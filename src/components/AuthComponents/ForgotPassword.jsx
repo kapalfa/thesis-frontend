@@ -11,16 +11,14 @@ export default function ForgotPassword() {
     const mutation = useMutation({
         mutationFn: () => {
             return axios.post('/forgotPassword', {email})
+        },
+        onSuccess: () => {
+            navigate('/setNewPassword')
         }
     })
     const handleSubmit = (e) => {
         e.preventDefault()
-        mutation.mutate({
-            onSuccess: () => {
-                navigate('/setNewPassword')
-            }
-        }
-        )
+        mutation.mutate()
     }
     return (
         <div style={{display:'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
