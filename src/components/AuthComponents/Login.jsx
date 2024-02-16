@@ -14,9 +14,7 @@ import * as yup from 'yup'
 import GithubLogin from '../GithubComponents/GithubLogin'
 import axios from '../../api/axios'
 
-const defaultTheme = createTheme(
-  
-)
+const defaultTheme = createTheme()
 
 const schema = yup.object().shape({
   email: yup.string().email('Invalid email address').required('Required'),  
@@ -115,6 +113,7 @@ export default function SignIn() {
           <GithubLogin/>
           <FormControllLabel control={<Switch/>} label="Trust this device" onChange={togglePersist} checked={persist}/>
           <Link to="/register" variant="body2" underline="hover">Don't have an account? Sign up</Link>
+          <Link to="/forgotpassword" variant="body2" underline="hover">Forgot password?</Link>
         </Box>
       </Container>
     </ThemeProvider>

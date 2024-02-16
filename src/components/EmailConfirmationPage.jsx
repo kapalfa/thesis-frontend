@@ -21,7 +21,7 @@ export default function EmailConfirmation() {
         <div>
             <h1>Confirm your email</h1>
             <p>Write the code you received on your email</p>
-            <form onSubmit={handleSubmit} style={{displat: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+            <form onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
                 <input type="text" value={confirmationCode} onChange={(e) => setConfirmationCode(e.target.value)} required/>
                 <button type="submit">Submit</button>
             </form>

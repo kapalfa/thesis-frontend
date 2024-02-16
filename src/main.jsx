@@ -18,6 +18,7 @@ import AccessTokenFetcher from './components/GithubComponents/GithubCallback'
 import PublicProjectList from './components/PublicProjects'
 import { GitProvider } from './context/GitProvider'
 import EmailConfirmation from './components/EmailConfirmationPage'
+import ForgotPassword from './components/AuthComponents/ForgotPassword'
 // import PersistLogin from './components/AuthComponentsPersistLogin'
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -94,6 +95,10 @@ const router = createBrowserRouter([
   {
     path: "/github/callback",
     element: <AccessTokenFetcher />,
+  },
+  {
+    path: "/forgotPassword",
+    element: <ForgotPassword  />,
   },
   {
     path: "*",
