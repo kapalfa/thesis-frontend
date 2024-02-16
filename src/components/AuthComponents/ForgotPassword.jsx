@@ -20,8 +20,8 @@ export default function ForgotPassword() {
         mutation.mutate()
     }
     return (
-        <Box sx = {{bgcolor: '#292522', height: '100vh'}}>
-            <Card variant="outlined" sx={{position:"absolute", top:"50%", left: "50%", transform:"translate(-50%,-50%)", width:"50%", height:"50%", maxWidth: "1000px"}}>
+        <Box sx = {{bgcolor: '#292522', height: '100vh', alignContent: 'center', justifyContent: 'center'}}>
+            <Card variant="outlined" sx={{ maxWidth: "500px"}}>
                 <CardContent>
                     <Typography variant="h5" component="div" sx={{textAlign:"center"}}>Forgot Password</Typography>
                     <Typography variant="body2" sx={{textAlign:"center"}}>Enter your email to reset your password</Typography>
