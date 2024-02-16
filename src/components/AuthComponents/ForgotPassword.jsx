@@ -23,7 +23,7 @@ export default function ForgotPassword() {
     return (
         <div style={{display:'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
         <h1>Enter your email</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
             <TextField variant='outlined' label="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
             <Button variant="text" type="submit">Submit</Button>
         </form>
