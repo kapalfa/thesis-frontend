@@ -32,14 +32,15 @@ export default function SetNewPassword() {
 
     return (
         <Box sx={{bgcolor: '#292522', height: '100vh'}}>
-            <Card variant='outlined'>   
+            <Card variant='outlined' sx={{alignItems: 'center', justifyContent: 'center', maxWidth: '500px'}}>   
                 <CardContent>
                     <Typography variant="h5" component="div">Set a new password</Typography>
                     <form onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+                   
                     <Typography variant="body2">Enter the code you received on your mail</Typography>
-                    <TextField variant='outlined' label='Verification code' value={confirmationCode} onChange={(e) => setConfirmationCode(e.target.value)} required/>
+                    <TextField sx={{marginTop: 2, marginBottom: 2}} variant='outlined' label='Verification code' value={confirmationCode} onChange={(e) => setConfirmationCode(e.target.value)} required/>
                     <Typography variant="body2">Enter your new password</Typography>
-                    <TextField variant='outlined' label='New password' type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required/>
+                    <TextField sx={{marginTop: 2}} variant='outlined' label='New password' type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required/>
                     <Button type="submit">Submit</Button>
                 </form>
                 </CardContent >
