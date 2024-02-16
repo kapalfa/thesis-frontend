@@ -31,7 +31,7 @@ export default function SetNewPassword() {
     }
 
     return (
-        <Box sx={{bgcolor: '#292522', height: '100vh', alignContent: 'center', justifyContent: 'center', alignItems: 'center'}}>
+        <Box sx={{bgcolor: '#292522', display: 'flex', height: '100vh', alignContent: 'center', justifyContent: 'center', alignItems: 'center'}}>
             <Card variant='outlined' sx={{maxWidth:'500px'}}>   
                 <CardContent>
                     <Typography sx={{textAlign:"center"}} variant="h5" component="div">Set a new password</Typography>
