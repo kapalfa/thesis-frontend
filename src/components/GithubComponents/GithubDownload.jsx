@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Paper, Box, TextField, Button, Typography, FormControlLabel } from '@mui/material'
+import { Grid, Paper, Box, TextField, Button, Typography } from '@mui/material'
 import axios from '../../api/axios'
 import useAuth from '../../hooks/useAuth'
 import { jwtDecode } from 'jwt-decode'
@@ -18,7 +18,6 @@ export default function DownloadRepo () {
                             'Content-Type': 'application/json', 
                         }
                     })
-
                 console.log('res: ', res)
             } catch (error) {
                 console.log('error: ', error)
@@ -34,7 +33,6 @@ export default function DownloadRepo () {
           jsonObject[key] = value
         }
         const repoName = jsonObject.repoName
-        console.log('repoName: ', repoName)
         mutate(repoName)        
     }
 
@@ -48,19 +46,22 @@ export default function DownloadRepo () {
                         flexDirection: 'column',
                         gap: '10px',
                         padding: '20px',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        minWidth: '370px'
                     }}
                     noValidate
                     autoComplete="off"
                     onSubmit={handleSubmit}
                 >
-                    <Typography variant="h6"> Download Repository </Typography>
+                    <Typography variant="h4" component="h2" gutterBottom> Download Repository </Typography>
                     <Grid item xs={12}>
-                        <TextField name="repoName" label="Repository Name" variant="outlined" />
-                    </Grid>
-                    {/* <Grid item xs={12}>
-                        <TextField name="description" label="Project description" variant="outlined" />
+                        <TextField name="repoName" label="Repository Name" variant="outlined" sx={{width: '330px'}}/>
                     </Grid>
                     <Grid item xs={12}>
+                        <TextField name="description" label="Description" variant="outlined" sx={{width:'330px'}} multiline/>
+                    </Grid>
+                   {/*} <Grid item xs={12}>
                         <FormControlLabel control={<Switch name="isPublic"/>} label="Public" />
                     </Grid> */}
                     <Grid item xs={12}>

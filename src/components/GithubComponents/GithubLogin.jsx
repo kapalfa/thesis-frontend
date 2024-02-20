@@ -6,7 +6,6 @@ export default function GithubLogin () {
     const handleGithubLogin = async () => {
         axios.get('/github/login')
             .then(function (response) {
-                console.log("response from github login: ", response)
                 window.location.href = response.data
             })
             .catch(function (error) {

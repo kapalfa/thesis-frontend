@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 import CodeEditor from './CodeEditor.jsx'
 import ReadonlyCodeEditor from './ReadonlyCodeEditor.jsx'
 import Info from './Info.jsx'
-import ToggleChat from './ToggleChat.jsx'
+import Chat from './Chat.jsx'
 import ToggleShell from './ToggleShell.jsx'
 export const FileContext = createContext();
 
@@ -29,7 +29,7 @@ export default function BasicGrid(){
         <div style={{flex: '0 0 40%', display: 'flex', flexDirection: 'column'}} >
           <ToggleShell /> 
           <div style={{margin: 10}}>    
-            <ToggleChat/>
+            <Chat/>
           </div> 
         </div>
       </div>

@@ -6,15 +6,24 @@ import { TextField, Button, Typography, Box, Card, CardContent } from '@mui/mate
 import { useNavigate } from 'react-router-dom'
 
 export default function SetNewPassword() {
-    const [ confirmationCode, setConfirmationCode ] = useState('')
-    const [ newPassword, setNewPassword ] = useState('')
+    const [ token, setToken ] = useState('')
+    const [ password, setPassword ] = useState('')
     const navigate = useNavigate()
 
     const mutation = useMutation({
         mutationFn: () => {
-            return axios.post(`/setNewPassword`, {confirmationCode, newPassword})
+            console.log('token ', token)
+            console.log('password: ', password)
+            return axios.post(`/setNewPassword`, {token, password},
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            )
         },
         onSuccess: (data) => {
+            console.log('data: ', data)
             if (data.message === 'Token expired') {
                 alert('Token expired')
             }
@@ -38,9 +47,9 @@ export default function SetNewPassword() {
 
                     <form onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
                     <Typography variant="body2">Enter the code you received on your mail</Typography>
-                    <TextField sx={{marginTop: 2, marginBottom: 3}} variant='outlined' label='Verification code' value={confirmationCode} onChange={(e) => setConfirmationCode(e.target.value)} required/>
+                    <TextField sx={{marginTop: 2, marginBottom: 3}} variant='outlined' label='Verification code' value={token} onChange={(e) => setToken(e.target.value)} required/>
                     <Typography variant="body2">Enter your new password</Typography>
-                    <TextField sx={{marginTop: 2}} variant='outlined' label='New password' type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required/>
+                    <TextField sx={{marginTop: 2}} variant='outlined' label='New password' type="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
                     <Button type="submit">Submit</Button>
                 </form>
                 </CardContent >

@@ -44,19 +44,21 @@ export default function SignIn() {
     
     axios.post('/login', jsonObject)
       .then(response => {
-        if (response.data.message==="Invalid password"){
-          console.log("invalid password\n")
-        }
-        if( response.data.message==="User not found"){
-          console.log("user not found\n")
-        }
         const accessToken = response.data.access_token;
         setAuth(accessToken);
         localStorage.setItem('email', email);
         navigate('/main', {replace: true}, {state: {from: from}})  
       }) 
       .catch(err => {
-        console.log(err)
+        if (err.response.data.message === "Email not found"){
+          alert("User with this email doesn't exist\n")
+        } else if (err.response.data.message==="Invalid password"){
+          alert("Invalid password\n")
+        } else if (err.response.data.message==="User not found"){
+          console.log("user not found\n")
+        } else if(err.response.data.message==="User not verified"){
+          alert("Verify your email\n")
+        }
       })
   }
 

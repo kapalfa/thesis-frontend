@@ -8,8 +8,6 @@ export default function FileUpload({path, onRefresh, onClose}){
     const axiosPrivate = useAxiosPrivate()
     const { error, mutate } = useMutation({
         mutationFn: ({formData, path}) => {
-            console.log("path on fileUpload: ", path)
-            console.log("formData on fileUpload: ", formData)
             axiosPrivate.post(`/upload/${path}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -40,7 +38,7 @@ export default function FileUpload({path, onRefresh, onClose}){
                 event.target.value = null
                 setOpen(false)
                 onClose()
-                setTimeout(onRefresh(), 1000) // add delay
+                setTimeout(onRefresh, 1000) // add delay
             }
         })
     }

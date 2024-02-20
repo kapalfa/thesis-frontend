@@ -71,6 +71,7 @@ export default function Register() {
               <TextField
                 fullWidth
                 id="email"
+                label="Email Address"
                 {...formik.getFieldProps('email')}
               />
               {formik.touched.email && formik.errors.email ? <div>{formik.errors.email}</div> : null}
@@ -79,6 +80,7 @@ export default function Register() {
              <TextField
                 fullWidth       
                 type="password"
+                label="Password"
                 id="password"
              {...formik.getFieldProps('password')}
               />

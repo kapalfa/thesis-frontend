@@ -5,7 +5,7 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Logout from './AuthComponents/Logout.jsx'
 import Button from '@mui/material/Button'
-import { createTheme, Dialog, DialogContent, ListItem, ThemeProvider } from '@mui/material'
+import { createTheme, Dialog, DialogContent, IconButton, ListItem, ThemeProvider } from '@mui/material'
 import getInvitations from './InvitationList.jsx'
 import Invitation from './Invitation.jsx'
 import { DialogActions } from '@mui/material'
@@ -56,10 +56,13 @@ export default function Profile () {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={handleClose}> <Logout/> </MenuItem>
+                <MenuItem> <AccountCircleRoundedIcon/> 
+                {localStorage.getItem('email')}</MenuItem>
+               
                 {status === 'success' && invitations && invitations.length > 0 &&
                     <MenuItem onClick={()=>handleInvitationClick()}><NewReleasesIcon/> Invitations </MenuItem>
                 }
+                <MenuItem onClick={handleClose}> <Logout/> </MenuItem>
             </Menu>
             <Dialog open={openDialog} onClose={handleDialogClose}>
                 <DialogContent>

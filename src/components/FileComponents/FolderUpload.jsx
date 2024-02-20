@@ -49,7 +49,7 @@ export default function FolderUpload({path, onRefresh, onClose}) {
                 event.target.value = null;
                 setOpen(false);
                 onClose();
-                setTimeout(onRefresh(), 1000)
+                setTimeout(onRefresh, 2000)
             }
         })
     }

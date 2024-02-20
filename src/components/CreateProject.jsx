@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
@@ -7,7 +8,6 @@ import Box from "@mui/material/Box";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import useAuth from "../hooks/useAuth";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate, useLocation } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import { Typography } from "@mui/material";
@@ -18,19 +18,25 @@ const schema = yup.object().shape({
     projectDescription: yup.string().required('Project description is required')
 })
 export default function CreateProjectForm () {
-    const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
     const { auth } = useAuth()
-    const navigate = useNavigate()
     const axiosPrivate = useAxiosPrivate()
-
+    const [projectName, setProjectName] = useState('')
+    const [projectDescription, setProjectDescription] = useState('')
+    const [isPublic, setIsPublic] = useState(false)
+    
     const handleSubmit = async (event) => {
         event.preventDefault()
-        const data = new FormData(event.currentTarget)
-        let jsonObject = {}
-        for (const [key,value] of data.entries()) { 
-          jsonObject[key] = value
+      //  const data = new FormData(event.currentTarget)
+      //  let jsonObject = {}
+        const jsonObject = {
+            projectName,
+            projectDescription,
+            isPublic
         }
+
+        // for (const [key,value] of data.entries()) { 
+        //   jsonObject[key] = value
+        // }
         try{
             await schema.validate(jsonObject)
         } catch (error) {
@@ -38,7 +44,7 @@ export default function CreateProjectForm () {
             return
         }
         const decoded = jwtDecode(auth)
-
+        console.log("isPublic: ", jsonObject.isPublic)
         const requestData = {
             name: jsonObject.projectName,
             description: jsonObject.projectDescription,
@@ -46,13 +52,14 @@ export default function CreateProjectForm () {
             public: jsonObject.isPublic === 'on'
         }
         try {
-            const response = await axiosPrivate.post(`/createProject`, requestData, {
+            await axiosPrivate.post(`/createProject`, requestData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
-            const projectId = response.data.data.id
-            navigate(`/project/${projectId}`, {state: { project: response.data.data, from: from }})
+            setProjectName('')
+            setProjectDescription('')
+            setIsPublic(false)
         } catch (error) {
             console.log(error)
         }
@@ -60,7 +67,7 @@ export default function CreateProjectForm () {
 
     return(
         <Grid container justifyContent="center" alignItems="center">
-            <Paper elevation={3}>
+            <Paper elevation={3} >
                 <Box 
                     component="form" 
                     sx={{
@@ -68,20 +75,23 @@ export default function CreateProjectForm () {
                         flexDirection: 'column',
                         gap: '10px',
                         padding: '20px',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        minWidth: '370px'
                     }}
                     noValidate
                     autoComplete="off"
                     onSubmit={handleSubmit}
                 >   
-                    <Typography variant="h4" component="h2" gutterBottom>New Project</Typography>
+                    <Typography variant="h4" component="h2" gutterBottom>Create Project</Typography>
                     <Grid item xs={12}>
-                        <TextField name="projectName" label="Project Name" variant="outlined" />
+                        <TextField value={projectName} name="projectName" label="Project Name" variant="outlined" sx={{width: '330px'}} onChange={e=>setProjectName(e.target.value)}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField name="projectDescription" label="Project Description" variant="outlined" />
+                        <TextField value={projectDescription} name="projectDescription" label="Project Description" variant="outlined" sx={{width: '330px'}} multiline onChange={e=>setProjectDescription(e.target.value)}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <FormControlLabel control={<Switch name="isPublic"/>} label="Public"/>
+                        <FormControlLabel checked={isPublic} control={<Switch name="isPublic"/>} label="Public" onChange={e=>{console.log("checkd: ", e.target.checked);setIsPublic(e.target.checked)}}/>
                     </Grid>
                     <Grid item xs={12}>
                         <Button variant="contained" type="submit">Create Project</Button>

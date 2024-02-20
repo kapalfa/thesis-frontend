@@ -47,7 +47,7 @@ export default function CreateFolder({path, onRefresh, onClose}) {
                 event.target.value = null
                 setOpen(false)
                 onClose()
-                setTimeout(onRefresh(), 1000) // add delay
+                setTimeout(onRefresh, 1000) // add delay
             }
         });
     }
@@ -63,7 +63,7 @@ export default function CreateFolder({path, onRefresh, onClose}) {
                 <DialogTitle>Create Folder</DialogTitle>
                 <form onSubmit={handleCreateFolder}>
                     <DialogContent>
-                        <input type='text' name="foldername"/>
+                        <input type='text' name="foldername" required/>
                     </DialogContent>
                     <DialogActions>
                         <Button type="submit">Create</Button>

@@ -56,7 +56,7 @@ export default function CreateFile({path, onRefresh, onClose}) {
                 <DialogTitle>Create File</DialogTitle>
                 <form onSubmit={handleCreateFile}>
                     <DialogContent>
-                        <input type='text' name="filename"/>
+                        <input type='text' name="filename" required/>
                     </DialogContent>
                     <DialogActions>
                         <Button type="submit">Create</Button>

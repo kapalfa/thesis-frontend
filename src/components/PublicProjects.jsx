@@ -10,6 +10,7 @@ import { useMutation } from '@tanstack/react-query'
 import useAuth from '../hooks/useAuth'
 import { jwtDecode } from 'jwt-decode'
 import useAxiosPrivate from '../hooks/useAxiosPrivate'
+import Box from '@mui/material/Box'
 const ProjectCard = ({name, description, emails}) => (
     <CardContent>
         <Typography variant="h5" component="div">
@@ -23,14 +24,13 @@ const ProjectCard = ({name, description, emails}) => (
         </Typography>
     </CardContent>
 )
-const getPublicProjects = async ({axiosPrivate}) => {
-    const { data } = await axiosPrivate.get(`/getPublicProjects`)
-    return data
-}
-function getPublicProjectsQuery() {
+function getPublicProjectsQuery(axiosPrivate) {
     return useQuery({
         queryKey: ['publicProjects'],
-        queryFn: getPublicProjects,
+        queryFn: async () => {
+            const response = await axiosPrivate.get(`/getPublicProjects`);
+            return response.data 
+        },
         staleTime: 30000,
         select: (data) => {
             const projects = data.map(project => ({ id: project.id, name: project.name, description: project.description, emails: project.collaborators.map(collaborator => collaborator.email)}))
@@ -41,13 +41,16 @@ function getPublicProjectsQuery() {
 export default function PublicProjectList() {
     const { auth } = useAuth()
     const userid = jwtDecode(String(auth)).id
-    const { status, data: projects, error, isLoading } = getPublicProjectsQuery({axiosPrivate})
     const axiosPrivate = useAxiosPrivate()
+    const { status, data: projects, error, isLoading } = getPublicProjectsQuery(axiosPrivate)
     const copyProject = useMutation({
         mutationFn: (id) => {
             axiosPrivate.post(`/copyProject`, {
                 projectid: String(id),
                 userid: String(userid),
+            }, 
+            {
+                headers: { 'Content-Type': 'application/json' }
             })
         }
     })
@@ -69,13 +72,17 @@ export default function PublicProjectList() {
     }
     if (status === "success") {
         return (
-            <>
-            <h2>Public Projects</h2>
-            <Grid container spacing={3} sx={{width: '100%'}}>
+            <Box sx={{display: 'flex', bgcolor: '#292522', height: '100vh', flexDirection: 'column'}}>
+                <Grid item xs={12}>
+                    <Typography variant="h4" component="h2" sx={{color: 'white', textAlign: 'center', mt: 2}}>
+                        Public Projects 
+                    </Typography>
+                </Grid>
+             <Grid  item container spacing={3} sx={{width: '100%', mt:2}}>
                 {projects.map(({id, name, description, emails}) => {
                     return (
                         <Grid item xs={12} sm={6} md={4} key={id}>
-                            <Card variant="outlined">
+                            <Card variant="outlined" sx={{m:2}}>
                                 <ProjectCard id={id} name={name} description={description} emails={emails}/>
                                 <CardActions>
                                     <Button size="small" color="primary" onClick={()=>handleButtonClick({id, emails})}>
@@ -89,8 +96,8 @@ export default function PublicProjectList() {
                         </Grid>
                     )
                 })}
-            </Grid>
-            </>
+             </Grid> 
+            </Box>
         )    
     }
 }

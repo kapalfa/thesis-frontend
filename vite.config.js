@@ -5,7 +5,7 @@ export default defineConfig({
   // optimizeDeps: { 
   //   exclude: ['fsevents']
   // },
-  plugins: [react()],
+  // plugins: [react()],
   // esbuild: {
   //   loader: 'jsx',
   //   include: [
@@ -20,7 +20,7 @@ export default defineConfig({
         target: "https://code-editor-eusldaqlhq-zf.a.run.app",
         changeOrigin: true,
       },
-      },
+    },
     // https: {
     //   key : fs.readFileSync('./localhost-key.pem'),
     //   cert: fs.readFileSync('./localhost.pem'),

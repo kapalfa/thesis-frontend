@@ -49,11 +49,10 @@ const theme = createTheme({
         },
      },
 })
-const getProjectsByUserid = async (auth, userid, axiosPrivate) => {
+const getProjectsByUserid = async ( userid, axiosPrivate) => {
     const { data } = await axiosPrivate.get(`/getProjects/${userid}`, {
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${auth}`
         }
     })
     return data
@@ -64,7 +63,7 @@ function getProjects(auth, axiosPrivate){
   
     return useQuery({
         queryKey: ['projects', userid],
-        queryFn: () => getProjectsByUserid(auth, userid, axiosPrivate),
+        queryFn: () => getProjectsByUserid( userid, axiosPrivate),
         enabled: !!userid,
         staleTime: 30000,
         select: (data) => {
@@ -75,11 +74,16 @@ function getProjects(auth, axiosPrivate){
 }
 function createInvitation(axiosPrivate) {
     const mutate = useMutation({
-        mutationFn: (email, id) => {
+        mutationFn: ({email, id}) => {
             try {
-                const res = axiosPrivate.post(`/createInvitation`, { email: email, id: id })
+                const res = axiosPrivate.post(`/createInvitation`, { email, id })
                 return res
             } catch (error) {
+                if(error.response.data.message === "User not found") {
+                    alert("User not found")
+                } else if (error.response.data.message === "User already has access to project") {
+                    alert("User already has access to project")
+                } 
                 console.log(error)
             }   
         },
@@ -114,8 +118,12 @@ export default function ProjectList() {
         queryFn: async () => {
             const decoded = jwtDecode(String(auth))
             const userid = decoded.id
-
-            const res = await axiosPrivate.post(`https://localhost:8443/github/initRepo`, { userid: userid, projectid: click })
+            console.log('git init repo: ', userid)
+            const res = await axiosPrivate.post(`/github/initRepo`, { userid: userid, projectid: click }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
             setClick(-1)
             return res
         },
@@ -135,7 +143,7 @@ export default function ProjectList() {
             alert(error.errors[0])
             return
         }
-        mutation.mutate(email, id)
+        mutation.mutate({email, id})
         setEmail(''),
         setShowForm(false)
     }

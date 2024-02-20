@@ -36,7 +36,7 @@ export default function DeleteFile({path, onRefresh}) {
             mutate({path, axiosPrivate}, {
                 onSuccess: () => {
                     setSelectedFile(null)                    
-                    setTimeout(onRefresh(), 1000) // add delay
+                    setTimeout(onRefresh, 1000) // add delay
                 }
             })
         }
