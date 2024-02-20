@@ -49,7 +49,7 @@ export default function CreateProjectForm () {
             name: jsonObject.projectName,
             description: jsonObject.projectDescription,
             user_id: decoded.id,
-            public: jsonObject.isPublic === 'on'
+            public: jsonObject.isPublic
         }
         try {
             await axiosPrivate.post(`/createProject`, requestData, {
