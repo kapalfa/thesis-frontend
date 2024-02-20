@@ -5,7 +5,7 @@ import useGit from "../../hooks/useGit"
 import { useNavigate } from "react-router-dom"
 import { useMutation } from "@tanstack/react-query"
 import { useEffect } from "react"
-
+import React from "react"
 export default function AccessTokenFetcher () {
     const [searchParams] = useSearchParams()
     const { setAuth } = useAuth();

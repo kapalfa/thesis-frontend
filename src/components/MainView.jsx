@@ -1,4 +1,5 @@
 import { useState, createContext } from 'react'
+import React from 'react'
 import ControlledTreeView from './ControlledTreeView.jsx'
 import { useLocation } from 'react-router-dom'
 import CodeEditor from './CodeEditor.jsx'

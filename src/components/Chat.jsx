@@ -1,4 +1,5 @@
 import useAuth from "../hooks/useAuth"
+import React from "react"
 import { jwtDecode } from "jwt-decode"
 import useWebSocket from "react-use-websocket"
 import 'react-chat-elements/dist/main.css'

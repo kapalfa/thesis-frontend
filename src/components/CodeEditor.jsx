@@ -1,4 +1,5 @@
 import { Editor } from '@monaco-editor/react'
+import React from 'react'
 import { useContext, useRef, useMemo, useEffect, useState } from 'react'
 import { FileContext } from './MainView'
 import getLanguage from '../../languageDetection/detectLang.js'
