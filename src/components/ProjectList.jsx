@@ -16,7 +16,6 @@ import { useState } from 'react'
 import Tooltip from '@mui/material/Tooltip'
 import GroupsIcon from '@mui/icons-material/Groups'
 import useAxiosPrivate from '../hooks/useAxiosPrivate'
-import Bookmarks from './testUseQuery.jsx'
 import * as yup from 'yup'
 const ProjectCard = ({ id, name, description }) => (
     <Link to={`/project/${id}`} >
@@ -191,7 +190,6 @@ export default function ProjectList() {
                                 </Card>
                             </Grid>)
                     })}
-                    <Bookmarks userId={jwtDecode(String(auth)).id} />
                 </Grid>
             </ThemeProvider>
         )
