@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 import useAxiosPrivate from '../hooks/useAxiosPrivate.js'
-import React from 'react'
 export default function getInvitations(){
     const axiosPrivate = useAxiosPrivate()
     return useQuery({

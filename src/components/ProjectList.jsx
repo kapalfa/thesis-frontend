@@ -16,6 +16,7 @@ import { useState } from 'react'
 import Tooltip from '@mui/material/Tooltip'
 import GroupsIcon from '@mui/icons-material/Groups'
 import useAxiosPrivate from '../hooks/useAxiosPrivate'
+import Bookmarks from './testUseQuery.jsx'
 import * as yup from 'yup'
 const ProjectCard = ({ id, name, description }) => (
     <Link to={`/project/${id}`} >
@@ -118,7 +119,6 @@ export default function ProjectList() {
         queryFn: async () => {
             const decoded = jwtDecode(String(auth))
             const userid = decoded.id
-            console.log('git init repo: ', userid)
             const res = await axiosPrivate.post(`/github/initRepo`, { userid: userid, projectid: click }, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -191,6 +191,7 @@ export default function ProjectList() {
                                 </Card>
                             </Grid>)
                     })}
+                    <Bookmarks userId={jwtDecode(String(auth)).id} />
                 </Grid>
             </ThemeProvider>
         )

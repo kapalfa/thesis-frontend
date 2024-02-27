@@ -44,7 +44,6 @@ export default function CreateProjectForm () {
             return
         }
         const decoded = jwtDecode(auth)
-        console.log("isPublic: ", jsonObject.isPublic)
         const requestData = {
             name: jsonObject.projectName,
             description: jsonObject.projectDescription,
@@ -91,7 +90,7 @@ export default function CreateProjectForm () {
                         <TextField value={projectDescription} name="projectDescription" label="Project Description" variant="outlined" sx={{width: '330px'}} multiline onChange={e=>setProjectDescription(e.target.value)}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <FormControlLabel checked={isPublic} control={<Switch name="isPublic"/>} label="Public" onChange={e=>{console.log("checkd: ", e.target.checked);setIsPublic(e.target.checked)}}/>
+                        <FormControlLabel checked={isPublic} control={<Switch name="isPublic"/>} label="Public" onChange={e=>setIsPublic(e.target.checked)}/>
                     </Grid>
                     <Grid item xs={12}>
                         <Button variant="contained" type="submit">Create Project</Button>
