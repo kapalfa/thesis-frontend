@@ -5,7 +5,7 @@ import {
     RouterProvider,
 } from 'react-router-dom'
 import LandingPage from './components/LandingPage'
-import ErrorPage from './components/error-page'
+import ErrorPage from './components/ErrorPage'
 import SignIn from './components/AuthComponents/Login'
 import Register from './components/AuthComponents/Register'
 import BasicGrid from './components/MainView'
