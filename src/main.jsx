@@ -20,14 +20,12 @@ import { GitProvider } from './context/GitProvider'
 import EmailConfirmation from './components/EmailConfirmationPage'
 import ForgotPassword from './components/AuthComponents/ForgotPassword'
 import SetNewPassword from './components/AuthComponents/SetNewPassword'
-// import PersistLogin from './components/AuthComponentsPersistLogin'
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
-  
   {
-      path: "/", 
-      element: <LandingPage/> ,
-      errorElement: <ErrorPage/>,
+    path: "/", 
+    element: <LandingPage/> ,
+    errorElement: <ErrorPage/>,
   },
   {
     path: "/login",
@@ -42,26 +40,13 @@ const router = createBrowserRouter([
     //{
    // element: <PersistLogin/>, 
    // children: [
-    { path: "/project/:id",
-      element: <RequireAuth/>,
-      children:[
-        {
-          path: "/project/:id",
-          element: <BasicGrid/>,
-        }
-      ],
-    },
-    //loader: async ({params}) => {
-     // const response = await axios.get(`https://localhost:8443/api/getProject/${params.id}`, {
-     //   headers: {
-      //    'Content-Type': 'application/json'
-     //   }
-     // })
-      //return response.data 
-    
-   // errorElement: <ErrorPage/>,
-          //  ]
-     // },    
+  { 
+    path: "/project",
+    element: <RequireAuth/>,
+    children:[
+      { path: ":id", element: <BasicGrid/> }
+    ],
+  },
     //  {
       //  path: "/user",
        // element: <RequireAuth/>,
@@ -83,10 +68,7 @@ const router = createBrowserRouter([
     path: "/main",
     element: <RequireAuth/>,
     children: [
-      {
-        path: "/main",
-        element: <AfterLogin/>,
-      },
+      { path: "", element: <AfterLogin/> },
     ]
   },
   {
