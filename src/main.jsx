@@ -5,7 +5,7 @@ import {
     RouterProvider,
 } from 'react-router-dom'
 import LandingPage from './components/LandingPage'
-import ErrorPage from './components/error-page'
+import ErrorPage from './components/ErrorPage.jsx'
 import SignIn from './components/AuthComponents/Login'
 import Register from './components/AuthComponents/Register'
 import BasicGrid from './components/MainView'
@@ -26,61 +26,46 @@ const router = createBrowserRouter([
     path: "/", 
     element: <LandingPage/> ,
     errorElement: <ErrorPage/>,
-  },
-  {
-    path: "/auth",
     children: [
-      { path: "login", element: <SignIn/> },
-      { path: "register", element: <Register/> },
-      { path: "forgotPassword", element: <ForgotPassword/> },
-      { path: "setNewPassword", element: <SetNewPassword/> }
-    ]
-  },
+      {
+        path: "auth",
+        children: [
+          { path: "login", element: <SignIn/> },
+          { path: "register", element: <Register/> },
+          { path: "forgotPassword", element: <ForgotPassword/> },
+          { path: "setNewPassword", element: <SetNewPassword/> }
+        ]
+      },
     //{
    // element: <PersistLogin/>, 
    // children: [
-  { 
-    path: "/project",
-    element: <RequireAuth/>,
-    children:[
-      { path: ":id", element: <BasicGrid/> }
-    ],
-  },
-    //  {
-      //  path: "/user",
-       // element: <RequireAuth/>,
-       // children:[
-         // {
-           // path: "/user",
-           // element: <User/>,
-            //errorElement: <ErrorPage/>,
-          //},
-        //]
-      //},  
-   // ]
-  //},
-  {
-    path: "/confirmEmail",
-    element: <EmailConfirmation/>,
-  },
-  {
-    path: "/main",
-    element: <RequireAuth/>,
-    children: [
-      { path: "", element: <AfterLogin/> },
+      { 
+        path: "project",
+        element: <RequireAuth/>,
+        children:[
+          { path: ":id", element: <BasicGrid/> }
+        ],
+      },
+      {
+        path: "confirmEmail",
+        element: <EmailConfirmation/>,
+      },
+      {
+        path: "main",
+        element: <RequireAuth/>,
+        children: [
+          { path: "", element: <AfterLogin/> },
+        ]
+      },
+      {
+        path: "public",
+        element: <PublicProjectList />
+      },
+      {
+        path: "github/callback",
+        element: <AccessTokenFetcher />,
+      },
     ]
-  },
-  {
-    path: "/public",
-    element: <PublicProjectList />
-  },
-  {
-    path: "/github/callback",
-    element: <AccessTokenFetcher />,
-  },
-  {
-    path: "*",
-    element: <ErrorPage/>,
   }
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
