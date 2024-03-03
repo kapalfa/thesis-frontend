@@ -12,7 +12,7 @@ export default function ForgotPassword() {
             return axios.post('/forgotPassword', {email})
         },
         onSuccess: () => {
-            navigate('/setNewPassword')
+            navigate('/auth/setNewPassword')
         }
     })
     const handleSubmit = (e) => {

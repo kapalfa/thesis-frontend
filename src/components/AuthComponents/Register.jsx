@@ -96,7 +96,7 @@ export default function Register() {
             Sign Up
           </Button>
       </form>
-        <Link to="/login" variant="body2" underline="hover">Already have an account? Log in</Link>
+        <Link to="/auth/login" variant="body2" underline="hover">Already have an account? Log in</Link>
       </Box>
     </Container>
   </ThemeProvider>

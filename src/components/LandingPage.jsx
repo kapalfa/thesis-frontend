@@ -20,7 +20,7 @@ export default function LandingPage() {
         Our online code editor lets you write, compile, and run your code all in one place.<br />
         It supports multiple programming languages and provides a simple and intuitive interface.
       </p>
-      <Link to="/login">
+      <Link to="/auth/login">
         <button type="button" style={{width: '150px', height: '50px', fontSize: '1em'}}>
           Start Coding
         </button>

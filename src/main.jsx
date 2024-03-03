@@ -30,16 +30,11 @@ const router = createBrowserRouter([
   {
     path: "/auth",
     children: [
-      { 
-        path: "login",
-        element: <SignIn/>,
-      },
+      { path: "login", element: <SignIn/> },
+      { path: "register", element: <Register/> },
+      { path: "forgotPassword", element: <ForgotPassword/> },
+      { path: "setNewPassword", element: <SetNewPassword/> }
     ]
-  },
-  {
-    path: "/register",
-    element: <Register/>,
-    errorElement: <ErrorPage/>,
   },
     //{
    // element: <PersistLogin/>, 
@@ -82,14 +77,6 @@ const router = createBrowserRouter([
   {
     path: "/github/callback",
     element: <AccessTokenFetcher />,
-  },
-  {
-    path: "/forgotPassword",
-    element: <ForgotPassword  />,
-  },
-  {
-    path: "/setNewPassword",
-    element: <SetNewPassword  />,
   },
   {
     path: "*",

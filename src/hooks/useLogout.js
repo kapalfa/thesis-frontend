@@ -13,7 +13,7 @@ const useLogout = () => {
             const response = await axiosPrivate.get(`/logout`)
             if (response.status=='200') {
                 setAuth(null)
-                navigate('/login', {replace: true})
+                navigate('/auth/login', {replace: true})
             } else {
                 console.log('Logout failed: ', response)
             }

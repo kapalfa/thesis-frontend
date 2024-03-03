@@ -114,8 +114,8 @@ export default function SignIn() {
           </Box>
           <GithubLogin/>
           <FormControllLabel control={<Switch/>} label="Trust this device" onChange={togglePersist} checked={persist}/>
-          <Link to="/register" variant="body2" underline="hover">Don't have an account? Sign up</Link>
-          <Link to="/forgotpassword" variant="body2" underline="hover">Forgot password?</Link>
+          <Link to="/auth/register" variant="body2" underline="hover">Don't have an account? Sign up</Link>
+          <Link to="/auth/forgotpassword" variant="body2" underline="hover">Forgot password?</Link>
         </Box>
       </Container>
     </ThemeProvider>

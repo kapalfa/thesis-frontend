@@ -30,7 +30,7 @@ export default function SetNewPassword() {
             if (data.message === 'Invalid token') {
                 alert('Invalid token')
             }
-            navigate('/login')
+            navigate('/auth/login')
         }
     })
 

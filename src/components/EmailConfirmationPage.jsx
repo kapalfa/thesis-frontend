@@ -11,7 +11,7 @@ export default function EmailConfirmation() {
             return axios.post(`/confirmEmail`, {confirmationCode})
         },
         onSuccess: () => {
-            navigate('/login')
+            navigate('/auth/login')
         }
     })
     const handleSubmit = (e) => {
