@@ -42,8 +42,6 @@ export default function Chat(){
             const messageSender = messageObject.senderId
             const messageEmail = messageObject.email
             setMessages((prevMessages) => [...prevMessages, {id : messageSender, message: messageContent, email: messageEmail}])},
-        //retryOnError: true,
-        //shouldReconnect: (closeEvent) => true,
         onClose: () => {sendMessage(JSON.stringify(FinalMessage)); setTimeout(()=>getWebSocket(), 5000)},
     })
     const handleKeyDown = (e) => {

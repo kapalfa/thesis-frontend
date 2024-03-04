@@ -5,7 +5,6 @@ import { FileContext } from '../MainView';
 import { useContext } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
-import { useParams } from 'react-router-dom';
 const deleteFile = ({path, axiosPrivate}) => {
     axiosPrivate.delete(`/deleteFile/${path}`)
     .then((response)=>{
@@ -24,7 +23,6 @@ const useDeleteFile = () => {
 }
 
 export default function DeleteFile({path, onRefresh}) {
-    const { id } = useParams()
     const { setSelectedFile } = useContext(FileContext)
     const { error, mutate } = useDeleteFile()
     const axiosPrivate = useAxiosPrivate()

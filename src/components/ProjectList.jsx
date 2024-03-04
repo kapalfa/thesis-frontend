@@ -16,6 +16,7 @@ import { useState } from 'react'
 import Tooltip from '@mui/material/Tooltip'
 import GroupsIcon from '@mui/icons-material/Groups'
 import useAxiosPrivate from '../hooks/useAxiosPrivate'
+import AutorenewIcon from '@mui/icons-material/Autorenew'
 import * as yup from 'yup'
 const ProjectCard = ({ id, name, description }) => (
     <Link to={`/project/${id}`} >
@@ -147,7 +148,7 @@ export default function ProjectList() {
         setShowForm(false)
     }
     if (isLoading) {
-        return <div>Loading...</div>
+        return <AutorenewIcon animation="border" role="status"><span className='sr-only'>Loading...</span></AutorenewIcon>
     }
     if (status === 'error') {
         if (error.message==="data is null") {
@@ -155,7 +156,10 @@ export default function ProjectList() {
         }
         return <div>Error: {error.message}</div>
     }
-    if (status === 'success') {
+    if (status === 'success' && projects.length === 0) {
+        return <div>No projects found</div>
+    }
+    if (status === 'success' && projects.length != 0) {
         return (
            <ThemeProvider theme={theme}>
                 <Grid container spacing={3} sx={{width: '100%'}}>
@@ -188,7 +192,8 @@ export default function ProjectList() {
                                     </IconButton>
                                     </Tooltip>
                                 </Card>
-                            </Grid>)
+                            </Grid>
+                        )
                     })}
                 </Grid>
             </ThemeProvider>
