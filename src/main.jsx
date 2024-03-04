@@ -20,6 +20,7 @@ import { GitProvider } from './context/GitProvider'
 import EmailConfirmation from './components/EmailConfirmationPage'
 import ForgotPassword from './components/AuthComponents/ForgotPassword'
 import SetNewPassword from './components/AuthComponents/SetNewPassword'
+import PersistLogin from './components/AuthComponents/PersistLogin'
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
   {
@@ -35,34 +36,36 @@ const router = createBrowserRouter([
       { path: "setNewPassword", element: <SetNewPassword/> }
     ]
   },
-    //{
-   // element: <PersistLogin/>, 
-   // children: [
-  { 
-    path: "/project",
-    element: <RequireAuth/>,
-    children:[
-      { path: ":id", element: <BasicGrid/> }
-    ],
-  },
   {
     path: "/confirmEmail",
     element: <EmailConfirmation/>,
   },
   {
-    path: "/main",
-    element: <RequireAuth/>,
-    children: [
-      { path: "", element: <AfterLogin/> },
-    ]
-  },
-  {
-    path: "/public",
-    element: <PublicProjectList />
-  },
-  {
     path: "/github/callback",
     element: <AccessTokenFetcher />,
+  },
+  {
+    element: <PersistLogin/>, 
+    children: [
+      { 
+        path: "/project",
+        element: <RequireAuth/>,
+        children:[
+          { path: ":id", element: <BasicGrid/> }
+        ],
+      },
+      {
+        path: "/main",
+        element: <RequireAuth/>,
+        children: [
+          { path: "", element: <AfterLogin/> },
+        ]
+      },
+      {
+        path: "/public",
+        element: <PublicProjectList />
+      },
+    ]
   },
   {
     path: "*",
