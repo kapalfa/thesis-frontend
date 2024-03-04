@@ -40,11 +40,10 @@ export default function CodeEditor(){
   const { status, data } = useQuery({
     queryKey: ['file', selectedFile],
     queryFn: async () => {
-      const res = await axios.get(`/getFile/${selectedFile}`,{
+      const res = await axios.get(`/getFile/${selectedFile}`)
        // params: {
          // _: new Date().getTime()
         //}
-      })
       return res.data
     },
     onSuccess: (data) => setFileContent(data.data),
