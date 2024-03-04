@@ -45,25 +45,17 @@ const router = createBrowserRouter([
     element: <AccessTokenFetcher />,
   },
   {
-    element: <PersistLogin/>, 
+    element: <RequireAuth/>, 
     children: [
       { 
-        path: "/project",
-        element: <RequireAuth/>,
-        children:[
-          { path: ":id", element: <BasicGrid/> }
-        ],
-      },
-      {
-        path: "/main",
-        element: <RequireAuth/>,
+        element: <PersistLogin />,
         children: [
-          { path: "", element: <AfterLogin/> },
+          {
+            path: "/project/:id", element: <BasicGrid/>,  
+            path: "/main", element: <AfterLogin/>,      
+            path: "/public", element: <PublicProjectList/> 
+          }
         ]
-      },
-      {
-        path: "/public",
-        element: <PublicProjectList />
       },
     ]
   },
