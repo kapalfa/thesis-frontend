@@ -11,6 +11,7 @@ import { jwtDecode } from "jwt-decode";
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import { Typography } from "@mui/material";
+import { useMutation } from "react-query";
 import * as yup from 'yup'
 
 const schema = yup.object().shape({
@@ -24,19 +25,27 @@ export default function CreateProjectForm () {
     const [projectDescription, setProjectDescription] = useState('')
     const [isPublic, setIsPublic] = useState(false)
     
+    const mutation = useMutation(
+        requestData => axiosPrivate.post(`/createProject`, requestData),
+        {
+            onSuccess: () => {
+                setProjectName('')
+                setProjectDescription('')
+                setIsPublic(false)
+            },
+            onError: (error) => {
+                console.log(error)
+            }
+        }
+    )
     const handleSubmit = async (event) => {
         event.preventDefault()
-      //  const data = new FormData(event.currentTarget)
-      //  let jsonObject = {}
         const jsonObject = {
             projectName,
             projectDescription,
             isPublic
         }
 
-        // for (const [key,value] of data.entries()) { 
-        //   jsonObject[key] = value
-        // }
         try{
             await schema.validate(jsonObject)
         } catch (error) {
@@ -50,18 +59,15 @@ export default function CreateProjectForm () {
             user_id: decoded.id,
             public: jsonObject.isPublic
         }
-        try {
-            await axiosPrivate.post(`/createProject`, requestData, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            setProjectName('')
-            setProjectDescription('')
-            setIsPublic(false)
-        } catch (error) {
-            console.log(error)
-        }
+        // try {
+        //     await axiosPrivate.post(`/createProject`, requestData)
+        //     setProjectName('')
+        //     setProjectDescription('')
+        //     setIsPublic(false)
+        // } catch (error) {
+        //     console.log(error)
+        // }
+        mutation.mutate(requestData)
     }
 
     return(

@@ -45,14 +45,7 @@ export default function Main(){
                 <Grid item xs={4}>
                     <Grid container direction="column" justifyContent="center" >
                         <Grid item xs={12} sm={8} md={6} sx={{mt:2, padding: '10px'}}>
-                        {/* <Grid container style={{flex:1, padding: '10px'}}> */}
-                            {/* <Grid item> */}
-                            <CreateProjectForm />  
-                            {/* </Grid> */}
-                                {/* {git && <Grid item >
-                                    <DownloadRepo />
-                                </Grid>   } */}
-                            {/* </Grid>    */}
+                            <CreateProjectForm />          
                         </Grid>
                         {git && <Grid item xs={12} sm={8} md={6} style={{flex:0.5, padding: '10px'}}>
                             <DownloadRepo />

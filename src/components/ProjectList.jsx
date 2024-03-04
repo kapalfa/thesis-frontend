@@ -51,11 +51,7 @@ const theme = createTheme({
      },
 })
 const getProjectsByUserid = async ( userid, axiosPrivate) => {
-    const { data } = await axiosPrivate.get(`/getProjects/${userid}`, {
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    })
+    const { data } = await axiosPrivate.get(`/getProjects/${userid}`)
     return data
 }
 function getProjects(auth, axiosPrivate){ 
@@ -155,9 +151,6 @@ export default function ProjectList() {
             return <div>No projects found</div>
         }
         return <div>Error: {error.message}</div>
-    }
-    if (status === 'success' && projects.length === 0) {
-        return <div>No projects found</div>
     }
     if (status === 'success' && projects.length != 0) {
         return (
