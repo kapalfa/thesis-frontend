@@ -11,7 +11,7 @@ import { jwtDecode } from "jwt-decode";
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import { Typography } from "@mui/material";
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import * as yup from 'yup'
 
 const schema = yup.object().shape({
@@ -24,10 +24,11 @@ export default function CreateProjectForm () {
     const [projectName, setProjectName] = useState('')
     const [projectDescription, setProjectDescription] = useState('')
     const [isPublic, setIsPublic] = useState(false)
-    
+    const queryClient = useQueryClient()
     const mutation = useMutation({
         mutationFn: (requestData) => { return axiosPrivate.post(`/createProject`, requestData)},
         onSuccess: () => {
+            queryClient.invalidateQueries('projects')
             setProjectName('')
             setProjectDescription('')
             setIsPublic(false)
@@ -57,14 +58,6 @@ export default function CreateProjectForm () {
             user_id: decoded.id,
             public: jsonObject.isPublic
         }
-        // try {
-        //     await axiosPrivate.post(`/createProject`, requestData)
-        //     setProjectName('')
-        //     setProjectDescription('')
-        //     setIsPublic(false)
-        // } catch (error) {
-        //     console.log(error)
-        // }
         mutation.mutate(requestData)
     }
 
