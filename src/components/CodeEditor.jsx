@@ -26,13 +26,13 @@ export default function CodeEditor(){
     //   queryClient.setQueryData(['file', selectedFile], editorRef.current.getModel().getValue())
     //   return { previousData }
     //  },
-    onSuccess: (newData) => {
+    onSuccess: async (newData) => {
       setFileContent(newData.data.data)
-    //   await queryClient.setQueryData(['file', selectedFile], newData.data.data)
-      return queryClient.invalidateQueries(['file', selectedFile])
+      await queryClient.setQueryData(['file', selectedFile], newData.data.data)
+    //  return queryClient.invalidateQueries(['file', selectedFile])
     },
-    onError: (error, variables, context) => {
-     // queryClient.setQueryData(['file', selectedFile], context.previousData)
+    onError: async (error, variables, context, ) => {
+      await queryClient.setQueryData(['file', selectedFile], context.previousData)
       console.log('error from useMutation: ', error)
     }
   
@@ -48,6 +48,7 @@ export default function CodeEditor(){
     },
     onSuccess: (data) => setFileContent(data.data),
     enabled: !!selectedFile,
+    staleTime: 1000 * 60
   })
   
   const language = useMemo(() => { // this runs before useEffect
