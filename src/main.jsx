@@ -50,11 +50,9 @@ const router = createBrowserRouter([
       { 
         element: <PersistLogin />,
         children: [
-          {
-            path: "/project/:id", element: <BasicGrid/>,  
-            path: "/main", element: <AfterLogin/>,      
-            path: "/public", element: <PublicProjectList/> 
-          }
+          { path: "/project/:id", element: <BasicGrid/>, }, 
+          { path: "/main", element: <AfterLogin/> },
+          { path: "/public", element: <PublicProjectList/> }
         ]
       },
     ]
