@@ -26,16 +26,14 @@ export default function CreateProjectForm () {
     const [isPublic, setIsPublic] = useState(false)
     
     const mutation = useMutation({
-        mutationFn: (requestData) => axiosPrivate.post(`/createProject`, requestData),
-        {
-            onSuccess: () => {
-                setProjectName('')
-                setProjectDescription('')
-                setIsPublic(false)
-            },
-            onError: (error) => {
-                console.log(error)
-            }
+        mutationFn: (requestData) => { return axiosPrivate.post(`/createProject`, requestData)},
+        onSuccess: () => {
+            setProjectName('')
+            setProjectDescription('')
+            setIsPublic(false)
+        },
+        onError: (error) => {
+            console.log(error)
         }
     })
     const handleSubmit = async (event) => {
