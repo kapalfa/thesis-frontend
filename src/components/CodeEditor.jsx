@@ -19,10 +19,7 @@ export default function CodeEditor(){
       return axiosPrivate.post(`/saveFile/${filepath}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
-      // return axios.post(`${API_BASE_URL}/saveFile/${filepath}`, formData, {
-      //   headers: { 'Content-Type': 'multipart/form-data' }
-      // });
-     },
+    },
     // onMutate: async () => {
     //   await queryClient.cancelQueries(['file', selectedFile])
     //   const previousData = queryClient.getQueryData(['file', selectedFile])
@@ -32,7 +29,7 @@ export default function CodeEditor(){
     onSuccess: (newData) => {
       setFileContent(newData.data.data)
     //   await queryClient.setQueryData(['file', selectedFile], newData.data.data)
-    //   return queryClient.invalidateQueries(['file', selectedFile])
+      return queryClient.invalidateQueries(['file', selectedFile])
     },
     onError: (error, variables, context) => {
      // queryClient.setQueryData(['file', selectedFile], context.previousData)
@@ -44,9 +41,9 @@ export default function CodeEditor(){
     queryKey: ['file', selectedFile],
     queryFn: async () => {
       const res = await axios.get(`/getFile/${selectedFile}`,{
-        params: {
-          _: new Date().getTime()
-        }
+       // params: {
+         // _: new Date().getTime()
+        //}
       })
       return res.data
     },
