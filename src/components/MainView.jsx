@@ -6,7 +6,6 @@ import CodeEditor from './CodeEditor.jsx'
 import ReadonlyCodeEditor from './ReadonlyCodeEditor.jsx'
 import Info from './Info.jsx'
 import Chat from './Chat.jsx'
-import ToggleShell from './ToggleShell.jsx'
 export const FileContext = createContext();
 
 export default function BasicGrid(){
@@ -28,7 +27,6 @@ export default function BasicGrid(){
           {readonly && <ReadonlyCodeEditor />}
         </div>      
         <div style={{flex: '0 0 40%', display: 'flex', flexDirection: 'column'}} >
-          <ToggleShell /> 
           <div style={{margin: 10}}>    
             <Chat/>
           </div> 
