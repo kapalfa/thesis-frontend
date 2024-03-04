@@ -11,7 +11,7 @@ import { jwtDecode } from "jwt-decode";
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import { Typography } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation } from '@tanstack/react-query'
 import * as yup from 'yup'
 
 const schema = yup.object().shape({
@@ -25,8 +25,8 @@ export default function CreateProjectForm () {
     const [projectDescription, setProjectDescription] = useState('')
     const [isPublic, setIsPublic] = useState(false)
     
-    const mutation = useMutation(
-        requestData => axiosPrivate.post(`/createProject`, requestData),
+    const mutation = useMutation({
+        mutationFn: (requestData) => axiosPrivate.post(`/createProject`, requestData),
         {
             onSuccess: () => {
                 setProjectName('')
@@ -37,7 +37,7 @@ export default function CreateProjectForm () {
                 console.log(error)
             }
         }
-    )
+    })
     const handleSubmit = async (event) => {
         event.preventDefault()
         const jsonObject = {
