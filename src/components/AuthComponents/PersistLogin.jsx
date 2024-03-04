@@ -21,7 +21,7 @@ const PersistLogin = () => {
             }
         }
 
-        if(!auth && !persist) { navigate('/auth/login')
+        if(!auth && !persist) navigate('/auth/login')
         !auth && persist ? verifyRefreshToken() : setIsLoading(false)     
     })
 
