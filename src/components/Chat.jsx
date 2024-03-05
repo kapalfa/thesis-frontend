@@ -63,7 +63,7 @@ export default function Chat(){
         <>
         {collaborators && collaborators.length > 0 && (
         <Box style={{width:'710px'}}> 
-            <div style={{ height: 387, marginRight: '100px', backgroundColor: "#292522", width:'100%'}}>
+            <div style={{ height: 387, marginRight: '100px', backgroundColor: "#292522", width:'100%', overflowY: 'auto'}}>
                 {messages.map((msg, index) => (
                     <div key={index} >
                         {msg.id === String(userid) ? '' : <Avatar src='https://avatar.vercel.sh/rauchg.svg' />}
