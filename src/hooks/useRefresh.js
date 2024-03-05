@@ -6,6 +6,7 @@ const useRefreshToken = () => {
     const refresh = async () => {
         const response = await axios.get('/refresh')
         const data = await response.data;
+        console.log("data from refresh", data)
         if(data == 'No JWT cookie found'){
             setAuth(null)
             return
