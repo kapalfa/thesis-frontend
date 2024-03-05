@@ -6,6 +6,7 @@ const RequireAuth = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
+    console.log("auth in requireAuth", auth)
     return (
         auth
         ? <Outlet />
