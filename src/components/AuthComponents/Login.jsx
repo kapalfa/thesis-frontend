@@ -42,7 +42,11 @@ export default function SignIn() {
       return
     }
     
-    axios.post('/login', jsonObject)
+    axios.post('/login', jsonObject,
+    {
+      headers: {'Content-Type': 'application/json'}
+    }
+    )
       .then(response => {
         const accessToken = response.data.access_token;
         setAuth(accessToken);
