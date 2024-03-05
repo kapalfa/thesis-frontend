@@ -20,7 +20,10 @@ const PersistLogin = () => {
                 setIsLoading(false)
             }
         }
-
+        useEffect(() => {
+        console.log('auth', auth)
+        console.log('persist', persist)
+        }, [auth, persist])
         if(!auth && !persist) navigate('/auth/login')
         !auth && persist ? verifyRefreshToken() : setIsLoading(false)     
     })
