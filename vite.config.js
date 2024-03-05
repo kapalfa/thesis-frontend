@@ -3,7 +3,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/": {
-        target: "https://thesis-backend-eusldaqlhq-uc.a.run.app",
+        target: "https://code-editor-eusldaqlhq-zf.a.run.app",
         changeOrigin: true,
       },
     },
