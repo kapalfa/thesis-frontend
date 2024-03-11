@@ -61,7 +61,7 @@ export default function Chat(){
         <>
         {collaborators && collaborators.length > 0 && (
         <Box style={{width:'500px'}}> 
-            <div style={{ height: 387, marginRight: '100px', backgroundColor: "#292522", width:'100%', overflowY: 'auto'}}>
+            <div style={{ marginRight: '100px', backgroundColor: "#292522", width:'100%', overflowY: 'auto'}}>
                 {messages.map((msg, index) => (
                     <div key={index}>
                         <MessageBox
