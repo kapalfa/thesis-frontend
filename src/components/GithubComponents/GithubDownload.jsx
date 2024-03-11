@@ -38,8 +38,8 @@ export default function DownloadRepo () {
     }
 
     return (
-        <Grid container justifyContent="center" alignItems="center" style={{width:"410px"}}>
-            <Paper elevation={3}>
+        <Grid container justifyContent="center" alignItems="center">
+            <Paper elevation={3} sx={{display:'flex', flexDirection: 'column', width:'410px'}}>
                 <Box 
                     component="form"
                     sx={{
@@ -50,7 +50,6 @@ export default function DownloadRepo () {
                         justifyContent: 'center',
                         alignItems: 'center',
                         minWidth: '350px',
-                        width: '410px',
                     }}
                     noValidate
                     autoComplete="off"
