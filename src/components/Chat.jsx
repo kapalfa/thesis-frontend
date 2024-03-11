@@ -64,12 +64,13 @@ export default function Chat(){
         <Box style={{width:'710px'}}> 
             <div style={{ height: 387, marginRight: '100px', backgroundColor: "#292522", width:'100%', overflowY: 'auto'}}>
                 {messages.map((msg, index) => (
-                    <div key={index} style={{ backgroundColor: msg.id === String(userid) ? "#292522" : "#f2e3c6"}}>
+                    <div key={index}>
                         <MessageBox
                             title={msg.email}
                             position={msg.id === String(userid) ? "right" : "left"}
                             type={'text'}
                             text={msg.message}
+                            style={{ backgroundColor: msg.id === String(userid) ? "#fbffe3" : "#f2e3c6" }} 
                         />
                     </div> 
                 ))}
