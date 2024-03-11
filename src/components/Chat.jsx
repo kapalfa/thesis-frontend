@@ -10,7 +10,6 @@ import TextField from "@mui/material/TextField"
 import Box from '@mui/material/Box'
 import { API_WS_URL } from "../api/axios"
 import useGetCollaborators from "../hooks/useGetCollaborators"
-import '../index.css'
 export default function Chat(){
     const { id } = useParams()
     const [ messageInput, setMessageInput ] = useState('')
@@ -61,7 +60,7 @@ export default function Chat(){
     return (
         <>
         {collaborators && collaborators.length > 0 && (
-        <Box style={{width:'510px'}}> 
+        <Box style={{width:'500px'}}> 
             <div style={{ height: 387, marginRight: '100px', backgroundColor: "#292522", width:'100%', overflowY: 'auto'}}>
                 {messages.map((msg, index) => (
                     <div key={index}>
@@ -70,7 +69,6 @@ export default function Chat(){
                             position={msg.id === String(userid) ? "right" : "left"}
                             type={'text'}
                             text={msg.message}
-                            className="message-box"
                         />
                     </div> 
                 ))}

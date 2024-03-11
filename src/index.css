@@ -71,8 +71,3 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
-
-.message-box {
-  background-color: #9e5d5d;
-  box-shadow: 0 0 8px rgba(130, 148, 127, 0.25);
-}
