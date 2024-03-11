@@ -25,6 +25,7 @@ export default function Chat(){
         roomId: id,
         senderId: String(userid)
     }
+
     let FinalMessage = {
         action: 'leaveRoom',
         message: '',
@@ -59,22 +60,22 @@ export default function Chat(){
     return (
         <>
         {collaborators && collaborators.length > 0 && (
-            <Box style={{width:'500px', height: 'calc(100vh-100px)'}}> 
-                <div style={{marginRight: '100px', backgroundColor: "#292522", width:'100%', overflowY: 'auto'}}>
-                    {messages.map((msg, index) => (
-                        <div key={index}>
-                            <MessageBox
-                                title={msg.email}
-                                position={msg.id === String(userid) ? "right" : "left"}
-                                type={'text'}
-                                text={msg.message}
-                            />
-                        </div> 
-                    ))}
-                </div>
-                <TextField value={messageInput} label="Chat with the collaborators of the project" variant="outlined" multiline rows={2} style={{ width: '100%' }} size="small" onChange={(e) => setMessageInput(e.target.value)} onKeyDown={(e) => { handleKeyDown(e) }} />
-            </Box>
-            )}
+        <Box style={{width:'500px'}}> 
+            <div style={{ height: '387px', marginRight: '100px', backgroundColor: "#292522", width:'100%', overflowY: 'auto'}}>
+                {messages.map((msg, index) => (
+                    <div key={index}>
+                        <MessageBox
+                            title={msg.email}
+                            position={msg.id === String(userid) ? "right" : "left"}
+                            type={'text'}
+                            text={msg.message}
+                        />
+                    </div> 
+                ))}
+            </div>
+            <TextField value={messageInput} label="Chat with the collaborators of the project" variant="outlined" multiline rows={2} style={{ width: '100%' }} size="small" onChange={(e) => setMessageInput(e.target.value)} onKeyDown={(e) => { handleKeyDown(e) }} />
+        </Box>
+        )}
         </>
     )
 }
