@@ -24,23 +24,23 @@ const ProjectCard = ({ id, name, description, handleDelete, setClick, handleIcon
             <Typography variant="h5" component="div">
                 {name}
             </Typography>
-            <div style={{maxHeight: '100px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace:'nowrap'}}>
+            <div style={{maxHeight: '100px', overflow: 'hidden', textOverflow: 'ellipsis'}}>
                 <Typography variant="body2">
                     {description}
                 </Typography>
             </div>
-
-            <Tooltip title="Delete Project" placement="bottom">
+            <div placement="bottom">
+            <Tooltip title="Delete Project">
                 <IconButton onClick={()=> handleDelete(id)}>
                     <DeleteIcon />
                 </IconButton >
             </Tooltip>
-            {git && <Tooltip title="Initialize Github Repository" placement="bottom">
+            {git && <Tooltip title="Initialize Github Repository">
                 <IconButton onClick={()=>setClick(id)} >
                     <GitHubIcon />
                 </IconButton>
             </Tooltip>}
-            <Tooltip title="Invite Collaborators" placement="bottom">
+            <Tooltip title="Invite Collaborators">
                 <IconButton onClick={()=>handleIconClick(id)} >
                     <GroupsIcon />  
                     {showForm === id && (
@@ -53,6 +53,7 @@ const ProjectCard = ({ id, name, description, handleDelete, setClick, handleIcon
                     </form>)}
                 </IconButton>
             </Tooltip>
+            </div>
         </CardContent>
     </Link>
 );
