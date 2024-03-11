@@ -20,7 +20,7 @@ import AutorenewIcon from '@mui/icons-material/Autorenew'
 import * as yup from 'yup'
 const ProjectCard = ({ id, name, description, handleDelete, setClick, handleIconClick, handleFormSubmit, git, showForm, email, handleInputChange }) => (
     <Link to={`/project/${id}`} >
-        <CardContent style={{display:'flex', flexDirection:'column', justifyContent:'space-between', height:'100%'}}>
+        <CardContent>
             <Typography variant="h5" component="div">
                 {name}
             </Typography>
