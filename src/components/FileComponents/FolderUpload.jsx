@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { Button, DialogContent } from "@mui/material";
-import { Dialog, DialogTitle, DialogActions } from "@mui/material";
+import React, { useEffect } from "react"
+import { useMutation } from "@tanstack/react-query"
+import { Button, DialogContent } from "@mui/material"
+import { Dialog, DialogTitle, DialogActions } from "@mui/material"
 import { useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-
 const postFolder = ({formData, path, axiosPrivate}) => {
     axiosPrivate.post(`/uploadFolder/${path}`, formData,
     {

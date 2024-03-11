@@ -10,7 +10,10 @@ import TextField from "@mui/material/TextField"
 import Box from '@mui/material/Box'
 import { API_WS_URL } from "../api/axios"
 import useGetCollaborators from "../hooks/useGetCollaborators"
-
+import styled from "styled-components"
+const StyledMessageBox = styled(MessageBox)`
+    background-color: ${props => props.sentByCurrentUser ? "#fbffe3" : "#d6a692"};
+`
 export default function Chat(){
     const { id } = useParams()
     const [ messageInput, setMessageInput ] = useState('')
@@ -65,12 +68,12 @@ export default function Chat(){
             <div style={{ height: 387, marginRight: '100px', backgroundColor: "#292522", width:'100%', overflowY: 'auto'}}>
                 {messages.map((msg, index) => (
                     <div key={index}>
-                        <MessageBox
+                        <StyledMessageBox
                             title={msg.email}
                             position={msg.id === String(userid) ? "right" : "left"}
                             type={'text'}
                             text={msg.message}
-                            style={{ backgroundColor: msg.id === String(userid) ? "#fbffe3" : "#d6a692" }} 
+                            sentByCurrentUser={msg.id === String(userid)} 
                         />
                     </div> 
                 ))}

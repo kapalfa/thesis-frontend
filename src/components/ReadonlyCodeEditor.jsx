@@ -5,7 +5,6 @@ import { FileContext } from './MainView'
 import getLanguage from '../../languageDetection/detectLang.js'
 import useAxiosPrivate from '../hooks/useAxiosPrivate.js'
 import Grid from '@mui/material/Grid'
-import Shell from './Shell.jsx'
 import { useQuery } from '@tanstack/react-query'
 
 export default function ReadonlyCodeEditor(){
@@ -56,11 +55,6 @@ export default function ReadonlyCodeEditor(){
               path={selectedFile ? selectedFile : ''}
               options={{readOnly: true}}
             />
-          }
-        </Grid>
-        <Grid item xs={6}>
-          {status === 'success' &&
-            <Shell />
           }
         </Grid>
       </Grid>
