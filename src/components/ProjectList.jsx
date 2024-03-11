@@ -18,17 +18,41 @@ import GroupsIcon from '@mui/icons-material/Groups'
 import useAxiosPrivate from '../hooks/useAxiosPrivate'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import * as yup from 'yup'
-const ProjectCard = ({ id, name, description }) => (
+const ProjectCard = ({ id, name, description, handleDelete, setClick, handleIconClick, handleFormSubmit, git, showForm, email, handleInputChange }) => (
     <Link to={`/project/${id}`} >
-        <CardContent>
+        <CardContent style={{display:'flex', flexDirection:'column', justifyContent:'space-between', height:'100%'}}>
             <Typography variant="h5" component="div">
                 {name}
             </Typography>
-            <div style={{maxHeight: '100px', overflow: 'hidden'}}>
+            <div style={{maxHeight: '100px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace:'nowrap'}}>
                 <Typography variant="body2">
                     {description}
                 </Typography>
             </div>
+
+            <Tooltip title="Delete Project" placement="bottom">
+                <IconButton onClick={()=> handleDelete(id)}>
+                    <DeleteIcon />
+                </IconButton >
+            </Tooltip>
+            {git && <Tooltip title="Initialize Github Repository" placement="bottom">
+                <IconButton onClick={()=>setClick(id)} >
+                    <GitHubIcon />
+                </IconButton>
+            </Tooltip>}
+            <Tooltip title="Invite Collaborators" placement="bottom">
+                <IconButton onClick={()=>handleIconClick(id)} >
+                    <GroupsIcon />  
+                    {showForm === id && (
+                    <form onSubmit={(e)=>handleFormSubmit(e, id)}>
+                        <label>
+                            Email:
+                            <input type="text" value={email} onChange={handleInputChange} />
+                        </label>
+                        <input type="submit" value="Submit" />
+                    </form>)}
+                </IconButton>
+            </Tooltip>
         </CardContent>
     </Link>
 );
@@ -162,30 +186,19 @@ export default function ProjectList() {
                         return (
                             <Grid item xs={12} sm={6} md={4} key={id}>
                                 <Card variant="outlined" style={{ height: '180px'}}>
-                                    <ProjectCard id={id} name={name} description={description}/>
-                                    <Tooltip title="Delete Project" placement="bottom">
-                                    <IconButton onClick={()=> handleDelete(id)}>
-                                        <DeleteIcon />
-                                    </IconButton >
-                                    </Tooltip>
-                                    {git && <Tooltip title="Initialize Github Repository" placement="bottom">
-                                        <IconButton onClick={()=>setClick(id)} >
-                                            <GitHubIcon />
-                                        </IconButton>
-                                    </Tooltip>}
-                                    <Tooltip title="Invite Collaborators" placement="bottom">
-                                    <IconButton onClick={()=>handleIconClick(id)} >
-                                        <GroupsIcon />  
-                                    {showForm === id && (
-                                    <form onSubmit={(e)=>handleFormSubmit(e, id)}>
-                                        <label>
-                                            Email:
-                                            <input type="text" value={email} onChange={handleInputChange} />
-                                        </label>
-                                        <input type="submit" value="Submit" />
-                                    </form>)}
-                                    </IconButton>
-                                    </Tooltip>
+                                    <ProjectCard 
+                                        id={id}
+                                        name={name} 
+                                        description={description} 
+                                        handleDelete={handleDelete}
+                                        setClick={setClick}
+                                        handleIconClick={handleIconClick}
+                                        handleFormSubmit={handleFormSubmit}
+                                        git={git}
+                                        showForm={showForm}
+                                        email={email}
+                                        handleInputChange={handleInputChange}
+                                    />
                                 </Card>
                             </Grid>
                         )
