@@ -11,7 +11,7 @@ import ReadonlyFileTree from './ReadOnlyFileTree';
 import useGetFilesByProject from '../hooks/useGetFilesByProject';
 
 export default function ControlledTreeView({readonly}) {
-    const { setSelectedFile } = useContext(FileContext);
+    const { selectedFile, setSelectedFile } = useContext(FileContext);
     const { id } = useParams();
     const { status, data: files, refetch, error } = useGetFilesByProject(id)
     const [expanded, setExpanded] = useState([])
@@ -37,7 +37,7 @@ export default function ControlledTreeView({readonly}) {
       }
     }, [refresh])
     useEffect(()=> {
-      if(!selectFile && files.length > 0){
+      if(!selectedFile && files.length > 0){
         setSelectedFile(files[0].path)
       }
     }, [files])
