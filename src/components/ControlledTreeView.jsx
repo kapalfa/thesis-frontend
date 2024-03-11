@@ -30,13 +30,18 @@ export default function ControlledTreeView({readonly}) {
     }, [allNodeIds])
     
     useEffect(()=> {
-      if(refresh){
-        
+      if(refresh){ 
         refetch()
         console.log("edw sto refresh")
         setRefresh(false)
       }
     }, [refresh])
+    useEffect(()=> {
+      if(!selectFile && files.length > 0){
+        setSelectedFile(files[0].path)
+      }
+    }, [files])
+
     if (status === 'loading') {
       return <div>Loading...</div>
     }

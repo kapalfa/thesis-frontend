@@ -20,16 +20,9 @@ export default function CodeEditor(){
         headers: { 'Content-Type': 'multipart/form-data' }
       })
     },
-    // onMutate: async () => {
-    //   await queryClient.cancelQueries(['file', selectedFile])
-    //   const previousData = queryClient.getQueryData(['file', selectedFile])
-    //   queryClient.setQueryData(['file', selectedFile], editorRef.current.getModel().getValue())
-    //   return { previousData }
-    //  },
     onSuccess: async (newData) => {
       setFileContent(newData.data.data)
       await queryClient.setQueryData(['file', selectedFile], newData.data.data)
-    //  return queryClient.invalidateQueries(['file', selectedFile])
     },
     onError: async (error, variables, context, ) => {
       await queryClient.setQueryData(['file', selectedFile], context.previousData)
@@ -41,10 +34,7 @@ export default function CodeEditor(){
     queryKey: ['file', selectedFile],
     queryFn: async () => {
       const res = await axios.get(`/getFile/${selectedFile}`)
-       // params: {
-         // _: new Date().getTime()
-        //}
-      return res.data
+        return res.data
     },
     onSuccess: (data) => setFileContent(data.data),
     enabled: !!selectedFile,
@@ -63,9 +53,6 @@ export default function CodeEditor(){
       formData.append('file', file)
       mutateFile.mutate(formData,
         { onSuccess: (data) => { queryClient.setQueryData(['file', selectedFile], data.data.data)}})
-     // data = formData.get('file')
-     /// queryClient.invalidateQueries({queryKey: [selectedFile]})
-     // queryClient.setQueriesData([selectedFile], editorRef.current.getModel().getValue())
   }
 
   useEffect(() => {

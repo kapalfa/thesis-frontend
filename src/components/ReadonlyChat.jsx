@@ -5,7 +5,7 @@ export default function ReadonlyChat(){
     return (
         <>
         <Box style={{width:'500px'}}>
-            <div style={{ height: '800px', marginRight: '100px', backgroundColor: "#292522", width:'97%'}}>
+            <div style={{ height: '100vh', marginRight: '100px', backgroundColor: "#292522", width:'97%'}}>
             </div>
         </Box>
         </>
