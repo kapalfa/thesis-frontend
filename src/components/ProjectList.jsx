@@ -24,7 +24,7 @@ const ProjectCard = ({ id, name, description }) => (
             <Typography variant="h5" component="div">
                 {name}
             </Typography>
-            <div style={{maxHeight: '90px', overflow: 'hidden'}}>
+            <div>
                 <Typography variant="body2">
                     {description}
                 </Typography>
@@ -161,8 +161,8 @@ export default function ProjectList() {
                     {projects.map(({id, name, description}) => {
                         return (
                             <Grid item xs={12} sm={6} md={4} key={id}>
-                                <Card variant="outlined" style={{ height: '200px', display: 'flex', flexDirection: 'column', justifyContent:'space-between'}}>
-                                    <ProjectCard id={id} name={name} description={description}/>
+                                <Card variant="outlined" style={{ height: '200px', display: 'flex', justifyContent:'space-between'}}>
+                                    <ProjectCard id={id} name={name} description={description} style={{maxHeigth: "90px"}}/>
                                     <Tooltip title="Delete Project" placement="bottom">
                                     <IconButton onClick={()=> handleDelete(id)}>
                                         <DeleteIcon />
