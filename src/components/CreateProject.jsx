@@ -63,7 +63,7 @@ export default function CreateProjectForm () {
 
     return(
         <Grid container justifyContent="center" alignItems="center">
-            <Paper elevation={3} >
+            <Paper elevation={3} sx={{width:'420px'}}>
                 <Box 
                     component="form" 
                     sx={{

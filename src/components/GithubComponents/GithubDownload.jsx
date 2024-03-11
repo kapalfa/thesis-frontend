@@ -39,7 +39,7 @@ export default function DownloadRepo () {
 
     return (
         <Grid container justifyContent="center" alignItems="center">
-            <Paper elevation={3} sx={{display:'flex', flexDirection: 'column', width:'410px'}}>
+            <Paper elevation={3} sx={{display:'flex', flexDirection: 'column', width:'420px'}}>
                 <Box 
                     component="form"
                     sx={{

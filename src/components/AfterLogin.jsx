@@ -17,7 +17,7 @@ export default function Main(){
     const { git } = useGit()
     const card = (
         <Box display="flex" justifyContent="center" maxHeight="170px">
-        <Card variant="outlined" style={{ width: '70%', minWidth: '410px'}} >
+        <Card variant="outlined" style={{ width: '70%', minWidth: '420px'}} >
             <CardContent>
                 <Typography variant="h5" component="div">
                     Public Projects 
