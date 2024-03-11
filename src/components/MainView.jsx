@@ -4,6 +4,7 @@ import ControlledTreeView from './ControlledTreeView.jsx'
 import { useLocation } from 'react-router-dom'
 import CodeEditor from './CodeEditor.jsx'
 import ReadonlyCodeEditor from './ReadonlyCodeEditor.jsx'
+import ReadonlyChat from './ReadonlyChat.jsx'
 import Info from './Info.jsx'
 import Chat from './Chat.jsx'
 export const FileContext = createContext();
@@ -28,6 +29,7 @@ export default function BasicGrid(){
         </div>      
         <div style={{flex: '0 0 30%', display: 'flex', flexDirection: 'column'}} >
           {!readonly && <Chat/>}
+          {readonly && <ReadonlyChat/>}
         </div>
       </div>
     </FileContext.Provider>  
