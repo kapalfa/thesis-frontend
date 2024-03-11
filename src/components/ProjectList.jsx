@@ -25,8 +25,14 @@ const ProjectCard = ({ id, name, description }) => (
                 {name}
             </Typography>
             <div style={{maxHeight: '100px', overflow: 'hidden'}}>
-            <Typography variant="body2">
-
+            <Typography variant="body2"
+                        style={{ 
+                                maxHeight: '100px', 
+                                overflow: 'hidden', 
+                                textOverflow: 'ellipsis', 
+                                whiteSpace: 'nowrap'
+                        }}>
+ 
                 {description}
             </Typography>
             </div>
