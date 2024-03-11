@@ -6,7 +6,6 @@ import 'react-chat-elements/dist/main.css'
 import { useState } from "react"
 import { useParams } from "react-router-dom"
 import { MessageBox } from 'react-chat-elements'
-import { Avatar } from 'react-chat-elements'
 import TextField from "@mui/material/TextField"
 import Box from '@mui/material/Box'
 import { API_WS_URL } from "../api/axios"
@@ -65,8 +64,7 @@ export default function Chat(){
         <Box style={{width:'710px'}}> 
             <div style={{ height: 387, marginRight: '100px', backgroundColor: "#292522", width:'100%', overflowY: 'auto'}}>
                 {messages.map((msg, index) => (
-                    <div key={index} >
-                        {msg.id === String(userid) ? '' : <Avatar src='https://avatar.vercel.sh/rauchg.svg' />}
+                    <div key={index} style={{ backgroundColor: msg.id === String(userid) ? "#292522" : "#f2e3c6"}}>
                         <MessageBox
                             title={msg.email}
                             position={msg.id === String(userid) ? "right" : "left"}

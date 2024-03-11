@@ -22,11 +22,11 @@ export default function BasicGrid(){
             <Info />
           </div>
         </div>   
-        <div style={{ flex: '0 0 40%'}}>
+        <div style={{ flex: '0 0 50%'}}>
           {!readonly && <CodeEditor />}
           {readonly && <ReadonlyCodeEditor />}
         </div>      
-        <div style={{flex: '0 0 40%', display: 'flex', flexDirection: 'column'}} >
+        <div style={{flex: '0 0 30%', display: 'flex', flexDirection: 'column'}} >
           <Chat/>
         </div>
       </div>

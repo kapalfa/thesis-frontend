@@ -17,7 +17,6 @@ function Shell() {
     const { sendMessage, lastMessage, getWebSocket } = useWebSocket(socketURL, {
         onOpen: () => { openInitTerminal(), runTerminal() },
         retryOnError: true,
-        shouldReconnect: (closeEvent) => true,
         onClose: () => {console.log('close'); getWebSocket().close()},
     })
     const termRef = useRef(null);

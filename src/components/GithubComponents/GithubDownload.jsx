@@ -54,16 +54,16 @@ export default function DownloadRepo () {
                     autoComplete="off"
                     onSubmit={handleSubmit}
                 >
-                    <Typography variant="h4" component="h2" gutterBottom> Download Repository </Typography>
+                    <Typography variant="h4" component="h2" gutterBottom> Clone GitHub Repository </Typography>
                     <Grid item xs={12}>
                         <TextField name="repoName" label="Repository Name" variant="outlined" sx={{width: '330px'}}/>
                     </Grid>
                     <Grid item xs={12}>
                         <TextField name="description" label="Description" variant="outlined" sx={{width:'330px'}} multiline/>
                     </Grid>
-                   {/*} <Grid item xs={12}>
+                    <Grid item xs={12}>
                         <FormControlLabel control={<Switch name="isPublic"/>} label="Public" />
-                    </Grid> */}
+                    </Grid> 
                     <Grid item xs={12}>
                         <Button variant="contained" type="submit">Download</Button>
                     </Grid>
