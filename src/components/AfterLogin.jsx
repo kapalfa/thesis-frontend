@@ -36,7 +36,7 @@ export default function Main(){
         </Box>
     )
     return(
-        <Box sx={{bgcolor: '#292522', height: '100vh'}}>
+        <Box sx={{bgcolor: '#292522', height: '150vh'}}>
         <Grid container direction="column" spacing={2}>
             <Grid item xs={12}>
                 <SearchAppBar/>
