@@ -29,7 +29,7 @@ export default function BasicGrid(){
         </div>      
         <div style={{flex: '0 0 30%', display: 'flex', flexDirection: 'column'}} >
           {!readonly && <Chat/>}
-          {readonly && <ReadonlyChat/>}  
+          {/*{readonly && <ReadonlyChat/>}  */}
         </div>
       </div>
     </FileContext.Provider>  
