@@ -1,5 +1,5 @@
 import useAuth from "../hooks/useAuth"
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import { jwtDecode } from "jwt-decode"
 import useWebSocket from "react-use-websocket"
 import 'react-chat-elements/dist/main.css'
@@ -19,6 +19,10 @@ export default function Chat(){
     const { data: collaborators } = useGetCollaborators(id, userid)
    
     const socketURL = `${API_WS_URL}/sockets/chat/${userid}`
+    const messagesEndRef = useRef(null)
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    }, [messages])
     let InitialMessage = {
         action: 'joinRoom',
         message: '',
@@ -72,6 +76,7 @@ export default function Chat(){
                         />
                     </div> 
                 ))}
+                <div ref={messagesEndRef} />
             </div>
             <TextField value={messageInput} label="Chat with the collaborators of the project" variant="outlined" multiline rows={2} style={{ width: '97%' }} size="small" onChange={(e) => setMessageInput(e.target.value)} onKeyDown={(e) => { handleKeyDown(e) }} />
         </Box>
