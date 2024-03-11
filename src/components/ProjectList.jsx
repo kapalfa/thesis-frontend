@@ -26,13 +26,12 @@ const ProjectCard = ({ id, name, description }) => (
             </Typography>
             <div style={{maxHeight: '100px', overflow: 'hidden'}}>
             <Typography variant="body2"
-                        style={{ 
-                                maxHeight: '100px', 
-                                overflow: 'hidden', 
-                                textOverflow: 'ellipsis', 
-                                whiteSpace: 'nowrap'
+            style={{ 
+                                display: '-webkit-box',
+                                WebkitBoxOrient: 'vertical',
+                                WebkitLineClamp: 3, // number of lines you want to display
+                                overflow: 'hidden',
                         }}>
- 
                 {description}
             </Typography>
             </div>
