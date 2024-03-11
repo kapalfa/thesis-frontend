@@ -24,7 +24,7 @@ const ProjectCard = ({ id, name, description }) => (
             <Typography variant="h5" component="div">
                 {name}
             </Typography>
-            <div style={{maxHeight: '90px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+            <div style={{maxHeight: '90px', overflow: 'hidden'}}>
                 <Typography variant="body2">
                     {description}
                 </Typography>
