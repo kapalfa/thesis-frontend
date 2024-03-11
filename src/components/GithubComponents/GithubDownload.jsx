@@ -49,7 +49,7 @@ export default function DownloadRepo () {
                         padding: '20px',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        minWidth: '410px'
+                        minWidth: '360px'
                     }}
                     noValidate
                     autoComplete="off"
