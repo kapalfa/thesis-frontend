@@ -27,7 +27,7 @@ export default function BasicGrid(){
           {readonly && <ReadonlyCodeEditor />}
         </div>      
         <div style={{flex: '0 0 30%', display: 'flex', flexDirection: 'column'}} >
-          <Chat/>
+          {!readonly && <Chat/>}
         </div>
       </div>
     </FileContext.Provider>  
