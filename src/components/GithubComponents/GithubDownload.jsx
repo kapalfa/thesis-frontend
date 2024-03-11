@@ -38,7 +38,7 @@ export default function DownloadRepo () {
     }
 
     return (
-        <Grid container justifyContent="center" alignItems="center">
+        <Grid container justifyContent="center" alignItems="center" style={{width:"410px"}}>
             <Paper elevation={3}>
                 <Box 
                     component="form"
