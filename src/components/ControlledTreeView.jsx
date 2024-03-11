@@ -39,7 +39,7 @@ export default function ControlledTreeView({readonly}) {
     }, [refresh])
 
     useEffect(()=> {
-      if(selectedFile===null && files && files.length > 0){
+      if(selectedFile===null && files.length > 0){
         console.log("edw sto selectedFile: ", files[0].filepath)
         setSelectedFile(files[0].filepath)
       }
