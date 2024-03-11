@@ -79,7 +79,7 @@ export default function CreateProjectForm () {
                     autoComplete="off"
                     onSubmit={handleSubmit}
                 >   
-                    <Typography variant="h4" component="h2" gutterBottom>Create Project</Typography>
+                    <Typography variant="h5" component="h2" gutterBottom>Create Project</Typography>
                     <Grid item xs={12}>
                         <TextField value={projectName} name="projectName" label="Project Name" variant="outlined" sx={{width: '330px'}} onChange={e=>setProjectName(e.target.value)}/>
                     </Grid>
