@@ -61,7 +61,7 @@ export default function Chat(){
     return (
         <>
         {collaborators && collaborators.length > 0 && (
-        <Box style={{width:'710px'}}> 
+        <Box style={{width:'510px'}}> 
             <div style={{ height: 387, marginRight: '100px', backgroundColor: "#292522", width:'100%', overflowY: 'auto'}}>
                 {messages.map((msg, index) => (
                     <div key={index}>
@@ -70,7 +70,7 @@ export default function Chat(){
                             position={msg.id === String(userid) ? "right" : "left"}
                             type={'text'}
                             text={msg.message}
-                            style={{ backgroundColor: msg.id === String(userid) ? "#fbffe3" : "#f2e3c6" }} 
+                            style={{ backgroundColor: msg.id === String(userid) ? "#fbffe3" : "#d6a692" }} 
                         />
                     </div> 
                 ))}
