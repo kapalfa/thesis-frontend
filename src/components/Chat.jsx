@@ -61,7 +61,7 @@ export default function Chat(){
         <>
         {collaborators && collaborators.length > 0 && (
         <Box style={{width:'500px'}}> 
-            <div style={{ height: '500px', marginRight: '100px', backgroundColor: "#292522", width:'100%', overflowY: 'auto'}}>
+            <div style={{ height: '800px', marginRight: '100px', backgroundColor: "#292522", width:'97%', overflowY: 'auto'}}>
                 {messages.map((msg, index) => (
                     <div key={index}>
                         <MessageBox
@@ -73,7 +73,7 @@ export default function Chat(){
                     </div> 
                 ))}
             </div>
-            <TextField value={messageInput} label="Chat with the collaborators of the project" variant="outlined" multiline rows={2} style={{ width: '100%' }} size="small" onChange={(e) => setMessageInput(e.target.value)} onKeyDown={(e) => { handleKeyDown(e) }} />
+            <TextField value={messageInput} label="Chat with the collaborators of the project" variant="outlined" multiline rows={2} style={{ width: '97%' }} size="small" onChange={(e) => setMessageInput(e.target.value)} onKeyDown={(e) => { handleKeyDown(e) }} />
         </Box>
         )}
         </>
