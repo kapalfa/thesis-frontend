@@ -32,13 +32,14 @@ export default function ControlledTreeView({readonly}) {
     useEffect(()=> {
       if(refresh){ 
         refetch()
-        console.log("edw sto refresh")
         setRefresh(false)
       }
     }, [refresh])
+
     useEffect(()=> {
       if(!selectedFile && files.length > 0){
-        setSelectedFile(files[0].path)
+        console.log('setting selected file to ', files[0])
+    //    setSelectedFile(files[0])
       }
     }, [files])
 

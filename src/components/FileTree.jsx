@@ -76,8 +76,7 @@ export default function FileTree({ files, setRefresh, handleFileClick, setAllNod
                     {nodeId == '0' ? 'Files' : node.name} 
                     {node.isDir && (
                         <div> 
-                            {/* <Button onClick={(event)=>{event.stopPropagation(); handleClick(event, node.filepath)}}>Choose Action</Button>  */}
-                             <Menu 
+                            <Menu 
                                 anchorEl={anchorEl}
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
