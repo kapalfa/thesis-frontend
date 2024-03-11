@@ -38,13 +38,6 @@ export default function ControlledTreeView({readonly}) {
       }
     }, [refresh])
 
-    useEffect(()=> {
-      if(selectedFile===null && files){
-        console.log("edw sto selectedFile: ", files[0].filepath)
-        setSelectedFile(files[0].filepath)
-      }
-    }, [files])
-
     if (status === 'loading') {
       return <div>Loading...</div>
     }
