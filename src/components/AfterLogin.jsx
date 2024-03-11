@@ -47,7 +47,7 @@ export default function Main(){
                         <Grid item xs={12} sm={8} md={6} sx={{mt:2, padding: '10px'}}>
                             <CreateProjectForm />          
                         </Grid>
-                        {git && <Grid item xs={12} sm={8} md={6} style={{flex:0.5, padding: '10px'}}>
+                        {git && <Grid item xs={12} sm={8} md={6} style={{padding: '10px'}}>
                             <DownloadRepo />
                         </Grid> }
                         <Grid item xs={12} sm={8} md={6} style={{flex:0.5, padding: '10px'}}>
