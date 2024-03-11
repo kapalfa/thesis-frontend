@@ -167,7 +167,7 @@ export default function ProjectList() {
                     {projects.map(({id, name, description}) => {
                         return (
                             <Grid item xs={12} sm={6} md={4} key={id}>
-                                <Card variant="outlined" style={{ height: '150px'}}>
+                                <Card variant="outlined" style={{ height: '180px'}}>
                                     <ProjectCard id={id} name={name} description={description}/>
                                     <Tooltip title="Delete Project" placement="bottom">
                                     <IconButton onClick={()=> handleDelete(id)}>
