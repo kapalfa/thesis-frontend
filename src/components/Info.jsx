@@ -51,7 +51,7 @@ export default function Info() {
         </Card> )}
 
         <Button size="small" sx={{width:400,backgroundColor: "#292522", marginTop: '10px', color: "#fbffe3", fontSize: '16px', fontFamily: 'Arial', '&:hover':{backgroundColor: "#292522", color:"#fbffe3"}}} onClick={()=>handleLogout()} >Sign out</Button>
-       {!readonly && git && <Button sx={{width:400,backgroundColor: "#002c2b", marginTop: '10px', color: "#fbffe3", fontSize: '16px', fontFamily: 'Arial'}} startIcon={<CommitIcon style={{color: "ffbc11"}}/>} onClick={()=>handleCommit()}>Commit to Github</Button>}
+       {!readonly && git && <Button sx={{width:400,backgroundColor: "#292522", marginTop: '10px', color: "#fbffe3", fontSize: '16px', fontFamily: 'Arial'}} startIcon={<CommitIcon style={{color: "#fbffe3"}}/>} onClick={()=>handleCommit()}>Commit to Github</Button>}
         </div>
     )
 }

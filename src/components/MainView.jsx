@@ -18,7 +18,9 @@ export default function BasicGrid(){
     <FileContext.Provider value={{ selectedFile, setSelectedFile }}>
       <div style={{display: 'flex', height: '100vh',  overflowX:'hidden'}}>
         <div style={{flex: '0 0 20%', display:'flex', flexDirection:'column', borderRight: '1px solid black'}}>
-          <ControlledTreeView readonly={readonly} />
+          <div style={{height: '740px', overflow: 'auto'}}>
+            <ControlledTreeView readonly={readonly} />
+          </div>
           <div style={{margin:10}}>
             <Info />
           </div>
