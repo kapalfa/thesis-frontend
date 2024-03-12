@@ -70,6 +70,7 @@ export default function Chat(){
                     <div key={index}>
                         <MessageBox
                             title={msg.email}
+                            titleColor={msg.id === String(userid) ? "#e21b5a" : "#028f76"}
                             position={msg.id === String(userid) ? "right" : "left"}
                             type={'text'}
                             text={msg.message}
