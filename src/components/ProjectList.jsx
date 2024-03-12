@@ -70,7 +70,7 @@ function getProjects(auth, axiosPrivate){
         queryKey: ['projects', userid],
         queryFn: () => getProjectsByUserid( userid, axiosPrivate),
         enabled: !!userid,
-        staleTime: 30000,
+       // staleTime: 30000,
         select: (data) => {
             const projects = data.map(project => ({ id: project.id, name: project.name, description: project.description }))
             return projects
