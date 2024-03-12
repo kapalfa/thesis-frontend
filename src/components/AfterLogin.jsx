@@ -41,21 +41,21 @@ export default function Main(){
             <Grid item xs={12}>
                 <SearchAppBar/>
             </Grid>  
-            <Grid container item xs={12} >
-                <Grid item xs={4}>
-                    <Grid container direction="column" justifyContent="center" >
-                        <Grid item xs={12} sm={8} md={6} sx={{mt:2, padding: '10px'}}>
+            <Grid container item xs={12} spacing={1}>
+                <Grid item xs={4} sm={6} md={4}>
+                    <Grid container direction="column" justifyContent="center" spacing={1}>
+                        <Grid item xs={12} sm={12} md={12}>
                             <CreateProjectForm />          
                         </Grid>
-                        {git && <Grid item xs={12} sm={8} md={6} style={{padding: '10px'}}>
+                        {git && <Grid item xs={12} sm={12} md={12}>
                             <DownloadRepo />
                         </Grid> }
-                        <Grid item xs={12} sm={8} md={6} style={{flex:0.5, padding: '10px'}}>
+                        <Grid item xs={12} sm={12} md={12}>
                             {card}
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={8} sx={{mt: 2, padding: '10px'}}>
+                <Grid item xs={12} sm={6} md={8}>
                     <ProjectList/>
                 </Grid>   
             </Grid>
