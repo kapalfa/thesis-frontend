@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Grid, Paper, Box, TextField, Button, Typography, FormControlLabel, Switch} from '@mui/material'
 import axios from '../../api/axios'
 import useAuth from '../../hooks/useAuth'
@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query'
 
 export default function DownloadRepo () {
     const { auth } = useAuth()
-    
+    const [isPublic, setIsPublic] = useState(false)
     const { mutate } = useMutation({
         mutationFn: async (requestData) => {
             try {
@@ -34,11 +34,10 @@ export default function DownloadRepo () {
           jsonObject[key] = value
         }
       //  const repoName = jsonObject.repoName
-        jsonObject.repoIsPublic = jsonObject.repoIsPublic === "on" || false;
         const requestData = {
             repoName: jsonObject.repoName,
             repoDesc: jsonObject.description,
-            repoIsPublic: jsonObject.isPublic
+            repoIsPublic: isPublic
         }
         console.log('requestData: ', requestData)
         mutate(requestData)        
@@ -70,7 +69,7 @@ export default function DownloadRepo () {
                         <TextField name="description" label="Description" variant="outlined" sx={{width:'330px'}} multiline/>
                     </Grid>
                     <Grid item xs={12}>
-                        <FormControlLabel control={<Switch name="isPublic"/>} label="Public" />
+                        <FormControlLabel checked={isPublic} control={<Switch name="isPublic"/>} label="Public" onChange={e=>setIsPublic(e.target.checked)}/>
                     </Grid> 
                     <Grid item xs={12}>
                         <Button variant="contained" type="submit">Download</Button>
