@@ -10,10 +10,10 @@ export default function DownloadRepo () {
     const { auth } = useAuth()
     
     const { mutate } = useMutation({
-        mutationFn: async (repoName) => {
+        mutationFn: async (requestData) => {
             try {
                 const userid = jwtDecode(auth).id
-                const res = await axios.post(`/github/downloadRepo/${userid}`, {repoName},
+                const res = await axios.post(`/github/downloadRepo/${userid}`, {requestData},
                     {
                         headers: {
                             'Content-Type': 'application/json', 
@@ -33,8 +33,14 @@ export default function DownloadRepo () {
         for (const [key,value] of data.entries()) { 
           jsonObject[key] = value
         }
-        const repoName = jsonObject.repoName
-        mutate(repoName)        
+      //  const repoName = jsonObject.repoName
+        const requestData = {
+            repoName: jsonObject.repoName,
+            repoDesc: jsonObject.description,
+            repoIsPublic: jsonObject.isPublic
+        }
+        console.log('requestData: ', requestData)
+        mutate(requestData)        
     }
 
     return (
