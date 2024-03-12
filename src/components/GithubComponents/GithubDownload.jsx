@@ -34,6 +34,7 @@ export default function DownloadRepo () {
           jsonObject[key] = value
         }
       //  const repoName = jsonObject.repoName
+        jsonObject.repoIsPublic = jsonObject.repoIsPublic === "on" || false;
         const requestData = {
             repoName: jsonObject.repoName,
             repoDesc: jsonObject.description,
